@@ -93,6 +93,7 @@ const Products = () => {
                     <img 
                       src={product.imagen_url || 'https://via.placeholder.com/300x200.png?text=Producto'} 
                       alt={product.nombre} 
+                      loading="lazy"
                       style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'cover' }}
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=400';

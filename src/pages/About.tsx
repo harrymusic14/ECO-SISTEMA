@@ -1,7 +1,25 @@
 
+import { useEffect, useState } from 'react';
 import PageHeader from '../components/PageHeader';
+import { supabase } from '../supabaseClient';
 
 const About = () => {
+  const [coverUrl, setCoverUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchCover = async () => {
+      const { data } = await supabase
+        .from('imagenes_sitio')
+        .select('imagen_url')
+        .eq('clave', 'nosotros_cover')
+        .maybeSingle();
+
+      setCoverUrl(data?.imagen_url ?? null);
+    };
+
+    fetchCover();
+  }, []);
+
   return (
     <>
       <PageHeader title="¿Quiénes Somos?" subtitle="ECO SISTEMAS URH SAC" />
@@ -21,8 +39,12 @@ const About = () => {
               Ofrecemos sistemas de riego por Aspersión, Microaspersión, Goteo y Nebulización.
             </p>
           </div>
-          <div className="glass" style={{ height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '4px solid #1e293b' }}>
-            <span style={{ color: 'var(--text-muted)' }}>[Imagen de los jardines con riego]</span>
+          <div className="glass" style={{ height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '4px solid #1e293b', overflow: 'hidden' }}>
+            {coverUrl ? (
+              <img src={coverUrl} alt="Jardines con riego" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            ) : (
+              <span style={{ color: 'var(--text-muted)' }}>[Imagen de los jardines con riego]</span>
+            )}
           </div>
         </div>
 

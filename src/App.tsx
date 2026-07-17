@@ -8,6 +8,9 @@ import Services from './pages/Services';
 import Projects from './pages/Projects';
 import Products from './pages/Products';
 import Contact from './pages/Contact';
+import Login from './pages/Login';
+import Admin from './pages/Admin';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -19,6 +22,12 @@ function App() {
         <Route path="proyectos" element={<Projects />} />
         <Route path="productos" element={<Products />} />
         <Route path="contacto" element={<Contact />} />
+        <Route path="login" element={<Login />} />
+        <Route path="admin" element={
+          <ProtectedRoute>
+            <Admin />
+          </ProtectedRoute>
+        } />
       </Route>
     </Routes>
   );

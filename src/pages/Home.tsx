@@ -1,29 +1,60 @@
 
+import { useEffect, useState } from 'react';
+import { supabase } from '../supabaseClient';
+
+const DEFAULT_POSTER = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2000';
 
 const Home = () => {
+  const [heroVideos, setHeroVideos] = useState<string[]>([]);
+  const [heroPoster, setHeroPoster] = useState<string>(DEFAULT_POSTER);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+
+  useEffect(() => {
+    const fetchHero = async () => {
+      const [videosRes, posterRes] = await Promise.all([
+        supabase.from('hero_videos').select('video_url').order('orden', { ascending: true }),
+        supabase.from('imagenes_sitio').select('imagen_url').eq('clave', 'home_hero').maybeSingle(),
+      ]);
+
+      if (videosRes.data) setHeroVideos(videosRes.data.map(v => v.video_url));
+      if (posterRes.data?.imagen_url) setHeroPoster(posterRes.data.imagen_url);
+    };
+
+    fetchHero();
+  }, []);
+
+  const handleVideoEnded = () => {
+    setCurrentVideoIndex(prev => (prev + 1) % heroVideos.length);
+  };
+
+  const currentVideo = heroVideos[currentVideoIndex];
+
   return (
     <>
       {/* Hero Section */}
       <section className="hero">
-        <video 
-          className="hero-video-bg" 
-          autoPlay 
-          loop 
-          muted 
+        <video
+          key={currentVideo}
+          className="hero-video-bg"
+          autoPlay
+          loop={heroVideos.length <= 1}
+          muted
           playsInline
-          poster="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2000"
+          preload="metadata"
+          poster={heroPoster}
+          onEnded={handleVideoEnded}
         >
-          {/* <source src="/tu-video-de-fondo.mp4" type="video/mp4" /> */}
+          {currentVideo && <source src={currentVideo} type="video/mp4" />}
         </video>
         <div className="hero-overlay"></div>
         
         <div className="container">
           <div className="hero-content">
-            <h1>Máquinas de <span>Potencia</span> para el Futuro</h1>
-            <p>Soluciones industriales, agrícolas y domésticas con la más alta tecnología y durabilidad. Equipando tu ecosistema.</p>
+            <h1>Soluciones en <span>Sistemas de Riego</span></h1>
+            <p>Más de 20 años instalando sistemas de riego tecnificado por Aspersión, Microaspersión, Goteo y Nebulización para residencias, edificios, parques, centros comerciales y campos agrícolas.</p>
             <div style={{ display: 'flex', gap: '1rem' }}>
-              <button className="btn btn-primary">Catálogo</button>
-              <button className="btn btn-outline">Contáctanos</button>
+              <a href="/productos" className="btn btn-primary">Catálogo</a>
+              <a href="/contacto" className="btn btn-outline">Contáctanos</a>
             </div>
           </div>
         </div>
