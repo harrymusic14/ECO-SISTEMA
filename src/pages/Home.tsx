@@ -1,6 +1,10 @@
 
 import { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
+import FeaturedProducts from '../components/FeaturedProducts';
+import PumpsShowcase from '../components/PumpsShowcase';
+import HelpSection from '../components/HelpSection';
+import CertificatesSection from '../components/CertificatesSection';
 
 const DEFAULT_POSTER = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2000';
 
@@ -59,6 +63,14 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      <FeaturedProducts />
+
+      <PumpsShowcase />
+
+      <HelpSection />
+
+      <CertificatesSection />
 
       {/* Marcas Section */}
       <section className="container" style={{ padding: '4rem 1rem', textAlign: 'center' }}>
