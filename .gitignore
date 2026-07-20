@@ -12,8 +12,16 @@ dist
 dist-ssr
 *.local
 
+# secretos locales de Supabase/Postgres (nunca versionar)
+.env.supabase-local
+.env*.local
+
 # graphify
 graphify-out/
+
+# material fotográfico fuente (sin optimizar, no va al repo)
+/Fotos Varios/
+/Fotos/
 
 # Editor directories and files
 .vscode/*

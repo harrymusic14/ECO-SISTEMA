@@ -19,12 +19,44 @@
   padding: 0;
 }
 
+html {
+  /* Evita la barra de scroll horizontal que aparece por el truco de "full-bleed"
+     (width: 100vw) del carrusel: 100vw incluye el ancho de la scrollbar vertical. */
+  overflow-x: hidden;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   background-color: var(--bg-dark);
   color: var(--text-light);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Scrollbar general de la página, a juego con la paleta del sitio */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-dark) var(--bg-dark);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-dark);
+  border-radius: 6px;
+  border: 2px solid var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary);
 }
 
 /* Tipografía */

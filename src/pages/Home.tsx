@@ -5,6 +5,7 @@ import FeaturedProducts from '../components/FeaturedProducts';
 import PumpsShowcase from '../components/PumpsShowcase';
 import HelpSection from '../components/HelpSection';
 import CertificatesSection from '../components/CertificatesSection';
+import Reveal from '../components/Reveal';
 
 const DEFAULT_POSTER = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2000';
 
@@ -68,12 +69,12 @@ const Home = () => {
 
       <PumpsShowcase />
 
-      <HelpSection />
+      <Reveal><HelpSection /></Reveal>
 
-      <CertificatesSection />
+      <Reveal><CertificatesSection /></Reveal>
 
       {/* Marcas Section */}
-      <section className="container" style={{ padding: '4rem 1rem', textAlign: 'center' }}>
+      <Reveal className="container" style={{ padding: '4rem 1rem', textAlign: 'center' }}>
         <h2 className="section-title" style={{ marginTop: '0' }}>Nuestras <span>Marcas</span></h2>
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '3rem', alignItems: 'center', marginTop: '2rem' }}>
           <div style={{ padding: '1.5rem', background: '#fff', borderRadius: '8px' }}>
@@ -93,9 +94,9 @@ const Home = () => {
             <h3 style={{ color: '#ffe600', fontFamily: 'Oswald', fontSize: '2rem' }}>TUBOPLAST</h3>
           </div>
         </div>
-      </section>
+      </Reveal>
 
-      <section className="container" style={{ marginBottom: '4rem' }}>
+      <Reveal className="container" style={{ marginBottom: '4rem' }}>
         <div className="glass" style={{ padding: '3rem', borderLeft: '4px solid var(--primary)' }}>
           <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>¿Buscas soluciones en sistemas de riego?</h2>
           <p style={{ fontSize: '1.1rem', marginBottom: '2rem', color: 'var(--text-muted)' }}>
@@ -103,7 +104,7 @@ const Home = () => {
           </p>
           <a href="/nosotros" className="btn btn-primary">Conócenos más</a>
         </div>
-      </section>
+      </Reveal>
     </>
   );
 };

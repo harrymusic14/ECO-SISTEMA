@@ -212,6 +212,27 @@ main {
   }
 }
 
+/* Reveal on scroll: las secciones no se animan solas, se activan cuando
+   entran al viewport (ver src/hooks/useReveal.ts y src/components/Reveal.tsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* Featured Products (portada) */
 .featured-products {
   padding: 2rem 1rem 4rem;
@@ -295,22 +316,16 @@ main {
   perspective: 1200px;
 }
 
-.featured-product-spin {
-  width: 420px;
-  height: 420px;
+.featured-product-3d {
+  width: 380px;
+  height: 380px;
   max-width: 100%;
-  animation: spin3d 14s linear infinite;
-  transform-style: preserve-3d;
   filter: drop-shadow(0 10px 25px rgba(0, 210, 255, 0.25));
+  cursor: grab;
 }
 
-@keyframes spin3d {
-  from {
-    transform: rotateY(0deg);
-  }
-  to {
-    transform: rotateY(360deg);
-  }
+.featured-product-3d:active {
+  cursor: grabbing;
 }
 
 @media (max-width: 768px) {
@@ -374,6 +389,15 @@ main {
   filter: drop-shadow(0 10px 25px rgba(0, 210, 255, 0.25));
 }
 
+.pumps-banner-photo {
+  width: 340px;
+  height: 340px;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  filter: drop-shadow(0 10px 25px rgba(0, 210, 255, 0.25));
+}
+
 .pumps-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -416,6 +440,7 @@ main {
 }
 
 .pumps-grid-item {
+  position: relative;
   background: linear-gradient(120deg, #0f172a 0%, #1e293b 100%);
   border: 1px solid var(--border-color);
   padding: 2.5rem 1.5rem;
@@ -423,17 +448,37 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
-  transition: all 0.3s ease;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* halo tecnológico que sigue apareciendo detrás al pasar el cursor */
+.pumps-grid-item::after {
+  content: '';
+  position: absolute;
+  inset: -40% -40% auto -40%;
+  height: 80%;
+  background: radial-gradient(circle, rgba(0, 210, 255, 0.35) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
 }
 
 .pumps-grid-item:hover {
   border-color: var(--primary);
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 210, 255, 0.18), 0 0 0 1px rgba(0, 210, 255, 0.25) inset;
+}
+
+.pumps-grid-item:hover::after {
+  opacity: 1;
 }
 
 .pumps-grid-item-visual {
+  position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 180px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -443,6 +488,20 @@ main {
   width: 80%;
   height: 80%;
   filter: drop-shadow(0 10px 25px rgba(0, 210, 255, 0.25));
+}
+
+.pumps-grid-item-photo {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 25px rgba(0, 210, 255, 0.25));
+  transition: transform 0.35s ease;
+}
+
+.pumps-grid-item:hover .pumps-grid-item-photo {
+  transform: scale(1.06);
 }
 
 .pumps-grid-item h4 {
