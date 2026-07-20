@@ -8,6 +8,7 @@ import { AdminProjectForm } from '../components/AdminProjectForm';
 import { AdminProjectList } from '../components/AdminProjectList';
 import { AdminCoverForm } from '../components/AdminCoverForm';
 import { AdminHeroForm } from '../components/AdminHeroForm';
+import { AdminVideosForm } from '../components/AdminVideosForm';
 import { useNavigate } from 'react-router-dom';
 
 const Admin = () => {
@@ -36,6 +37,7 @@ const Admin = () => {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
             <AdminHeroForm />
+            <AdminVideosForm />
             <AdminProductForm onProductAdded={() => setProductsRefresh(k => k + 1)} />
             <AdminProjectForm onProjectAdded={() => setProjectsRefresh(k => k + 1)} />
             <AdminCoverForm />

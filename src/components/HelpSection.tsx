@@ -1,24 +1,23 @@
-import { Cog, Wrench, Droplet, Settings } from 'lucide-react';
 import { buildExtended, useLoopCarousel } from '../hooks/useLoopCarousel';
 
 const SLIDES = [
   {
-    icon: Cog,
+    photo: '/productos/servicio-asesoria.webp',
     title: 'Asesoría',
     description: 'Brindamos asesoría para el diseño e implementación de sistemas de riego, para todo tipo de proyectos. Así mismo brindamos el soporte y asesoría técnica para la elección de sistemas de presión constante e hidroneumática para residencias, edificios, casas de campo, etc.',
   },
   {
-    icon: Wrench,
+    photo: '/productos/servicio-instalacion.webp',
     title: 'Instalación',
     description: 'Realizamos instalaciones de sistemas de riego en proyectos residenciales, edificios multifamiliares, campos deportivos, parques, casas de playa, condominios y campos agrícolas. Instalación de sistemas de Presión Constante e Hidroneumáticos, bombas para riego, tanque elevado, piscinas y pozos.',
   },
   {
-    icon: Droplet,
+    photo: '/productos/servicio-diseno.webp',
     title: 'Diseño',
     description: 'Diseñamos sistemas de riego de acuerdo a espacios y planos paisajísticos, para todo tipo de proyectos.',
   },
   {
-    icon: Settings,
+    photo: '/productos/servicio-mantenimiento.webp',
     title: 'Mantenimiento',
     description: 'Reparación y mantenimiento de electrobombas.',
   },
@@ -47,7 +46,6 @@ const HelpSection = () => {
       <div ref={viewportRef} className="carousel-viewport" {...viewportHandlers}>
         <div className="carousel-track" style={trackStyle}>
           {EXTENDED.map((slide, i) => {
-            const Icon = slide.icon;
             const isActive = i === index;
             return (
               <div
@@ -57,7 +55,6 @@ const HelpSection = () => {
               >
                 <div className="help-card">
                   <div className="help-card-info">
-                    <Icon size={46} color="var(--primary)" />
                     <h3>{slide.title}</h3>
                     <p>{slide.description}</p>
                     <a
@@ -69,7 +66,7 @@ const HelpSection = () => {
                     </a>
                   </div>
                   <div className="help-card-visual">
-                    <Icon size={130} color="var(--primary)" strokeWidth={1.25} />
+                    <img src={slide.photo} alt={slide.title} className="help-card-photo" loading="lazy" draggable={false} />
                   </div>
                 </div>
               </div>

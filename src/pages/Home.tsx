@@ -4,14 +4,12 @@ import { supabase } from '../supabaseClient';
 import FeaturedProducts from '../components/FeaturedProducts';
 import PumpsShowcase from '../components/PumpsShowcase';
 import HelpSection from '../components/HelpSection';
-import CertificatesSection from '../components/CertificatesSection';
+import VideosSection from '../components/VideosSection';
 import Reveal from '../components/Reveal';
-
-const DEFAULT_POSTER = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2000';
 
 const Home = () => {
   const [heroVideos, setHeroVideos] = useState<string[]>([]);
-  const [heroPoster, setHeroPoster] = useState<string>(DEFAULT_POSTER);
+  const [heroPoster, setHeroPoster] = useState<string | undefined>(undefined);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
   useEffect(() => {
@@ -71,7 +69,7 @@ const Home = () => {
 
       <Reveal><HelpSection /></Reveal>
 
-      <Reveal><CertificatesSection /></Reveal>
+      <Reveal><VideosSection /></Reveal>
 
       {/* Marcas Section */}
       <Reveal className="container" style={{ padding: '4rem 1rem', textAlign: 'center' }}>

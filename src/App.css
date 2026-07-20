@@ -4,11 +4,134 @@
   flex-direction: column;
 }
 
+.interactive-background {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  /* Más negativo que .hero-video-bg (-2) para que el video de la portada
+     quede siempre encima: este canvas pinta un fondo opaco cada cuadro. */
+  z-index: -3;
+  pointer-events: none;
+}
+
+.logo-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* escena propia y opaca — no deja ver la página real detrás */
+  background: var(--bg-dark);
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  overflow: hidden;
+  perspective: 500px;
+}
+
+.logo-preloader-out {
+  opacity: 0;
+}
+
+.logo-preloader-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.logo-preloader-glow {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 210, 255, 0.55) 0%, rgba(0, 210, 255, 0) 70%);
+  animation: logo-glow-pulse 1.6s ease-in-out infinite;
+}
+
+.logo-preloader-shadow {
+  position: absolute;
+  width: 170px;
+  height: 32px;
+  bottom: calc(50% - 165px);
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 75%);
+  filter: blur(2px);
+  animation: logo-shadow-pulse 1.6s cubic-bezier(0.3, 0.4, 0.3, 1) both;
+}
+
+.logo-preloader-stage {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  transform-style: preserve-3d;
+  animation: logo-planet-spin 1.6s cubic-bezier(0.3, 0.4, 0.3, 1) both;
+  filter: drop-shadow(0 0 36px rgba(0, 210, 255, 0.85));
+}
+
+/* Tarjeta de dos caras: cuando el frente gira más allá de 90° queda de
+   canto y se oculta (backface-visibility), y el reverso —pre-girado 180°—
+   aparece ya orientado correctamente. Da volumen real, no un giro plano. */
+.logo-preloader-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.logo-preloader-face-front {
+  transform: translateZ(1px);
+}
+
+.logo-preloader-face-back {
+  transform: rotateY(180deg) translateZ(1px);
+}
+
+/* Cae y se asienta primero; ya en reposo, gira 360° en profundidad (rotateY,
+   con perspective en el contenedor) como un planeta girando sobre su propio
+   eje — no un giro plano, sino con volumen real — y termina con un rebote. */
+@keyframes logo-planet-spin {
+  0%   { opacity: 0; transform: translateY(-100px) scale(0.5) rotateY(0deg); }
+  18%  { opacity: 1; }
+  38%  { transform: translateY(0) scale(1.08) rotateY(0deg); }
+  82%  { transform: translateY(0) scale(1.08) rotateY(360deg); }
+  92%  { transform: translateY(0) scale(0.95) rotateY(360deg); }
+  100% { opacity: 1; transform: translateY(0) scale(1) rotateY(360deg); }
+}
+
+@keyframes logo-shadow-pulse {
+  0% { transform: scale(0.5); opacity: 0.15; }
+  38% { transform: scale(1.15); opacity: 0.45; }
+  50% { transform: scale(1); opacity: 0.35; }
+  100% { transform: scale(1); opacity: 0.35; }
+}
+
+@keyframes logo-glow-pulse {
+  0%, 100% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-preloader-stage,
+  .logo-preloader-shadow,
+  .logo-preloader-glow {
+    animation: none;
+  }
+}
+
 main {
   flex: 1;
 }
 
 /* Header / Navbar */
+/* La entrada se dispara con la clase .navbar-in (controlada desde React en
+   Layout.tsx, sincronizada con el splash del logo) en vez de un
+   animation-delay fijo en CSS puro — así queda atada a un estado real y es
+   más fácil de verificar que se dispara. */
 .navbar {
   position: fixed;
   top: 0;
@@ -16,7 +139,14 @@ main {
   width: 100%;
   z-index: 1000;
   padding: 1rem 0;
-  transition: background-color 0.3s ease;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: background-color 0.3s ease, opacity 0.7s cubic-bezier(0.22, 0.9, 0.3, 1), transform 0.7s cubic-bezier(0.22, 0.9, 0.3, 1);
+}
+
+.navbar.navbar-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .navbar .container {
@@ -601,6 +731,16 @@ main {
   cursor: pointer;
 }
 
+/* El navegador arrastra las <img> por defecto (drag-and-drop nativo), lo que
+   choca con el arrastre propio del carrusel y hace que la imagen se quede
+   "pegada" al cursor. Se desactiva ese comportamiento nativo. */
+.carousel-slide img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-touch-callout: none;
+  pointer-events: none;
+}
+
 .carousel-slide.active {
   opacity: 1;
 }
@@ -644,35 +784,169 @@ main {
   filter: drop-shadow(0 10px 25px rgba(0, 210, 255, 0.25));
 }
 
-/* Certificates Section */
-.cert-card {
+.help-card-photo {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+/* Videos Section (estilo shorts/tiktok, vertical) */
+.video-carousel-track {
+  --slide-w: min(230px, 60vw) !important;
+}
+
+.video-slide {
+  opacity: 0.35;
+  transform: scale(0.86);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.video-slide.active {
+  transform: scale(1);
+}
+
+.video-card {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  width: 100%;
+  background: #000;
+  border-radius: 0;
+  overflow: hidden;
+  border: 3px solid var(--primary);
+  box-shadow: 0 0 0 rgba(0, 210, 255, 0);
+  transition: box-shadow 0.4s ease;
+}
+
+.video-slide.active .video-card {
+  box-shadow: 0 8px 30px rgba(0, 210, 255, 0.35);
+}
+
+.video-card-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-card-expand {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  height: 100%;
-  min-height: 260px;
-  background: #f8fafc;
-  border: 3px solid var(--primary);
-  padding: 2.5rem 1.5rem;
-  text-align: center;
+  cursor: pointer;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.cert-card h3 {
-  font-size: 1.6rem;
-  color: #0f172a;
+.video-card-expand:hover {
+  background: var(--primary);
+  color: #000;
+  transform: scale(1.08);
 }
 
-.cert-card-label {
+.video-card-title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1rem 0.75rem 0.6rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+  color: #fff;
   font-family: 'Oswald', sans-serif;
   font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.video-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 2rem;
+}
+
+.video-carousel-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.video-carousel-dot:hover {
+  background: rgba(0, 210, 255, 0.6);
+}
+
+.video-carousel-dot.active {
+  background: var(--primary);
+  transform: scale(1.3);
+}
+
+/* Video ampliado: modal propio en vez de la API nativa de pantalla completa
+   (poco confiable entre navegadores). Con sonido y controles nativos para
+   poder moverse libremente por el video. */
+.video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: video-modal-fade 0.25s ease;
+}
+
+.video-modal-media {
+  max-width: 92vw;
+  max-height: 92vh;
+  background: #000;
+  animation: video-modal-appear 0.4s cubic-bezier(0.3, 0.4, 0.3, 1);
+}
+
+.video-modal-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
   color: #fff;
-  background-color: var(--primary-dark);
-  padding: 0.35rem 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.video-modal-close:hover {
+  background: var(--primary);
+  color: #000;
+}
+
+@keyframes video-modal-fade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes video-modal-appear {
+  0% { opacity: 0; transform: scale(0.82); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 .cert-caption {
@@ -714,8 +988,7 @@ main {
     max-width: none;
   }
 
-  .help-card-visual svg {
-    width: 100px;
-    height: 100px;
+  .help-card-photo {
+    height: 180px;
   }
 }

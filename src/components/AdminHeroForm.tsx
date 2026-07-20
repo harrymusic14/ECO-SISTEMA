@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { supabase } from '../supabaseClient';
 
-const MAX_VIDEO_MB = 15;
+const MAX_VIDEO_MB = 60;
 
 interface HeroVideo {
   id: number;
@@ -38,9 +38,9 @@ export const AdminHeroForm = () => {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;
 
-    const allowedTypes = ['video/mp4', 'video/webm'];
+    const allowedTypes = ['video/mp4', 'video/webm', 'video/quicktime'];
     if (!allowedTypes.includes(selectedFile.type)) {
-      setMessage('Error: Solo se permiten videos en formato .mp4 o .webm.');
+      setMessage('Error: Solo se permiten videos en formato .mp4, .mov o .webm.');
       e.target.value = '';
       return;
     }
@@ -220,13 +220,13 @@ export const AdminHeroForm = () => {
           {uploadingVideo ? 'Subiendo...' : 'Agregar Video'}
           <input
             type="file"
-            accept="video/mp4, video/webm"
+            accept="video/mp4, video/webm, video/quicktime"
             onChange={handleVideoChange}
             disabled={uploadingVideo}
             style={{ display: 'none' }}
           />
         </label>
-        <small style={{ color: '#94a3b8', display: 'block', marginTop: '0.5rem' }}>.mp4 o .webm, máx {MAX_VIDEO_MB} MB cada uno</small>
+        <small style={{ color: '#94a3b8', display: 'block', marginTop: '0.5rem' }}>.mp4, .mov o .webm, máx {MAX_VIDEO_MB} MB cada uno</small>
       </div>
 
       <div>

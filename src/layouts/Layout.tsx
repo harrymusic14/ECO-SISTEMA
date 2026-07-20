@@ -1,10 +1,24 @@
 import { useEffect, useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
+import InteractiveBackground from '../components/InteractiveBackground';
+import LogoPreloader from '../components/LogoPreloader';
 
+// Coincide con el momento en que el splash del logo empieza a desvanecerse
+// (DISPLAY_MS en LogoPreloader.tsx), para que el navbar se revele justo ahí.
+const NAVBAR_REVEAL_DELAY_MS = 1900;
 
 const Layout = () => {
   const [navbarSolid, setNavbarSolid] = useState(false);
+  const [navbarReady, setNavbarReady] = useState(() =>
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
   const location = useLocation();
+
+  useEffect(() => {
+    if (navbarReady) return;
+    const timer = setTimeout(() => setNavbarReady(true), NAVBAR_REVEAL_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [navbarReady]);
 
   useEffect(() => {
     // Si no estamos en la página de inicio, el navbar siempre debe ser sólido
@@ -26,7 +40,12 @@ const Layout = () => {
 
   return (
     <div className="app-container">
-      <nav className={`navbar ${navbarSolid ? 'glass' : ''}`} style={{ backgroundColor: navbarSolid ? 'var(--glass-bg)' : 'transparent' }}>
+      <LogoPreloader />
+      <InteractiveBackground />
+      <nav
+        className={`navbar ${navbarReady ? 'navbar-in' : ''} ${navbarSolid ? 'glass' : ''}`}
+        style={{ backgroundColor: navbarSolid ? 'var(--glass-bg)' : 'transparent' }}
+      >
         <div className="container">
           <Link to="/" className="logo">
             <img src="/logo.png" alt="Eco Sistemas Logo" style={{ width: '40px', height: '40px', marginRight: '0.2rem' }} />

@@ -4,7 +4,7 @@
 
 ---
 
-## 1. Diagnóstico del estado actual (verificado en el repo, 2026-07-19)
+            ## 1. Diagnóstico del estado actual (verificado en el repo, 2026-07-19)
 
 ### 1.1 Qué es este proyecto
 Sitio web corporativo de **ECO SISTEMAS URH SAC** (Perú, RUC 20502059751), empresa dedicada a sistemas de riego tecnificado, bombas, tuberías y ferretería. El sitio muestra catálogo de productos, proyectos ejecutados, información institucional y tiene un panel de administración privado.
