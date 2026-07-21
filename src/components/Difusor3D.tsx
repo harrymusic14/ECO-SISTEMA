@@ -24,6 +24,15 @@ const DifusorModel = ({ active }: { active: boolean }) => {
       if (obj instanceof THREE.Mesh) {
         obj.castShadow = true;
         obj.receiveShadow = true;
+        // El archivo no trae metalness/roughness explícitos, así que glTF
+        // los interpreta como 100% metálicos por defecto — sin un mapa de
+        // entorno (HDRI) eso se ve casi negro salvo donde pega la luz
+        // directa. Se fuerza un acabado plástico semi-mate, más real para
+        // una pieza de riego.
+        if (obj.material instanceof THREE.MeshStandardMaterial) {
+          obj.material.metalness = 0.15;
+          obj.material.roughness = 0.6;
+        }
       }
     });
   }, [scene]);
@@ -50,19 +59,20 @@ const Difusor3D = () => {
         <Canvas shadows dpr={[1, 2]} gl={{ antialias: true }}>
           <PerspectiveCamera makeDefault position={[2.8, 1.1, 3.1]} fov={38} />
 
-          <ambientLight intensity={0.5} />
-          <hemisphereLight intensity={0.6} color="#ffffff" groundColor="#507088" />
+          <ambientLight intensity={0.9} />
+          <hemisphereLight intensity={1} color="#ffffff" groundColor="#507088" />
           <spotLight
             position={[3, 4, 2]}
-            angle={0.3}
+            angle={0.4}
             penumbra={1}
-            intensity={4}
+            intensity={6}
             castShadow
             shadow-mapSize={[2048, 2048]}
             shadow-bias={-0.0001}
           />
-          <pointLight position={[-2.5, 1.5, -2.5]} intensity={2} color="#22d3ee" distance={8} />
-          <spotLight position={[0, 3, -3]} intensity={2.5} color="#ffffff" angle={0.5} />
+          <pointLight position={[-2.5, 1.5, -2.5]} intensity={3} color="#22d3ee" distance={8} />
+          <spotLight position={[0, 3, -3]} intensity={4} color="#ffffff" angle={0.6} />
+          <spotLight position={[-3, 1, 3]} intensity={3} color="#ffffff" angle={0.6} penumbra={1} />
 
           <Suspense fallback={null}>
             <DifusorModel active={visible} />

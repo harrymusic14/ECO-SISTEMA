@@ -73,7 +73,7 @@ const Home = () => {
 
       {/* Marcas Section */}
       <Reveal className="container" style={{ padding: '4rem 1rem', textAlign: 'center' }}>
-        <h2 className="section-title" style={{ marginTop: '0' }}>Nuestras <span>Marcas</span></h2>
+        <h2 className="section-title" style={{ marginTop: '0' }}>Las <span>Marcas</span> con las que Trabajamos</h2>
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '3rem', alignItems: 'center', marginTop: '2rem' }}>
           <div style={{ padding: '1.5rem', background: '#fff', borderRadius: '8px' }}>
             <h3 style={{ color: '#000', fontFamily: 'Oswald', fontSize: '2rem' }}>DIG</h3>
