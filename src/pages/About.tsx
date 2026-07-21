@@ -41,7 +41,7 @@ const About = () => {
           </div>
           <div className="glass" style={{ height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '4px solid #1e293b', overflow: 'hidden' }}>
             {coverUrl ? (
-              <img src={coverUrl} alt="Jardines con riego" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={coverUrl} alt="Jardines con riego" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             ) : (
               <span style={{ color: 'var(--text-muted)' }}>[Imagen de los jardines con riego]</span>
             )}

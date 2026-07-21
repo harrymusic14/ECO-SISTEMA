@@ -38,9 +38,9 @@ export const AdminHeroForm = () => {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;
 
-    const allowedTypes = ['video/mp4', 'video/webm', 'video/quicktime'];
+    const allowedTypes = ['video/webm'];
     if (!allowedTypes.includes(selectedFile.type)) {
-      setMessage('Error: Solo se permiten videos en formato .mp4, .mov o .webm.');
+      setMessage('Error: Solo se permiten videos en formato optimizado (.webm).');
       e.target.value = '';
       return;
     }
@@ -197,7 +197,7 @@ export const AdminHeroForm = () => {
               >
                 <span style={{ color: '#64748b', fontSize: '1.1rem' }}>⠿</span>
                 <span style={{ color: 'var(--primary)', fontFamily: 'Oswald', fontSize: '0.85rem', width: '20px' }}>{idx + 1}</span>
-                <video src={v.video_url} muted style={{ width: '64px', height: '40px', objectFit: 'cover', borderRadius: '4px', flexShrink: 0 }} />
+                <video src={v.video_url} muted preload="none" style={{ width: '64px', height: '40px', objectFit: 'cover', borderRadius: '4px', flexShrink: 0 }} />
                 <span style={{ color: '#94a3b8', fontSize: '0.8rem', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {idx === 0 ? 'Se reproduce primero' : `Video ${idx + 1}`}
                 </span>
@@ -220,13 +220,13 @@ export const AdminHeroForm = () => {
           {uploadingVideo ? 'Subiendo...' : 'Agregar Video'}
           <input
             type="file"
-            accept="video/mp4, video/webm, video/quicktime"
+            accept="video/webm"
             onChange={handleVideoChange}
             disabled={uploadingVideo}
             style={{ display: 'none' }}
           />
         </label>
-        <small style={{ color: '#94a3b8', display: 'block', marginTop: '0.5rem' }}>.mp4, .mov o .webm, máx {MAX_VIDEO_MB} MB cada uno</small>
+        <small style={{ color: '#94a3b8', display: 'block', marginTop: '0.5rem' }}>.webm, máx {MAX_VIDEO_MB} MB cada uno</small>
       </div>
 
       <div>

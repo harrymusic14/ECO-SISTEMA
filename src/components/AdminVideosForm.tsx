@@ -35,9 +35,9 @@ export const AdminVideosForm = () => {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;
 
-    const allowedTypes = ['video/mp4', 'video/webm', 'video/quicktime'];
+    const allowedTypes = ['video/webm'];
     if (!allowedTypes.includes(selectedFile.type)) {
-      setMessage('Error: solo se permiten videos .mp4, .mov o .webm.');
+      setMessage('Error: Solo se permiten videos en formato optimizado (.webm).');
       e.target.value = '';
       return;
     }
@@ -149,7 +149,7 @@ export const AdminVideosForm = () => {
             >
               <span style={{ color: '#64748b', fontSize: '1.1rem' }}>⠿</span>
               <span style={{ color: 'var(--primary)', fontFamily: 'Oswald', fontSize: '0.85rem', width: '18px' }}>{idx + 1}</span>
-              <video src={v.video_url} muted style={{ width: '48px', height: '64px', objectFit: 'cover', borderRadius: '4px', flexShrink: 0 }} />
+              <video src={v.video_url} muted preload="none" style={{ width: '48px', height: '64px', objectFit: 'cover', borderRadius: '4px', flexShrink: 0 }} />
               <input
                 type="text"
                 placeholder="Título (opcional)"
@@ -177,13 +177,13 @@ export const AdminVideosForm = () => {
         {uploading ? 'Subiendo...' : 'Agregar Video'}
         <input
           type="file"
-          accept="video/mp4, video/webm, video/quicktime"
+          accept="video/webm"
           onChange={handleVideoChange}
           disabled={uploading}
           style={{ display: 'none' }}
         />
       </label>
-      <small style={{ color: '#94a3b8', display: 'block', marginTop: '0.5rem' }}>.mp4, .mov o .webm, máx {MAX_VIDEO_MB} MB cada uno</small>
+      <small style={{ color: '#94a3b8', display: 'block', marginTop: '0.5rem' }}>.webm, máx {MAX_VIDEO_MB} MB cada uno</small>
     </div>
   );
 };

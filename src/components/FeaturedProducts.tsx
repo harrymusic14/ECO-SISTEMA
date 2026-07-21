@@ -1,7 +1,8 @@
+import React, { Suspense } from 'react';
 import Reveal from './Reveal';
-import Rotor3D from './Rotor3D';
-import Difusor3D from './Difusor3D';
 
+const Rotor3D = React.lazy(() => import('./Rotor3D'));
+const Difusor3D = React.lazy(() => import('./Difusor3D'));
 type FeaturedProduct = {
   badge: string;
   title: string;
@@ -59,7 +60,9 @@ const FeaturedProducts = () => {
             </div>
             <div className="featured-product-visual">
               <div className="featured-product-3d">
-                {product.variant === 'rotor' ? <Rotor3D /> : <Difusor3D />}
+                <Suspense fallback={<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--text-muted)' }}>Cargando modelo 3D...</div>}>
+                  {product.variant === 'rotor' ? <Rotor3D /> : <Difusor3D />}
+                </Suspense>
               </div>
             </div>
           </Reveal>

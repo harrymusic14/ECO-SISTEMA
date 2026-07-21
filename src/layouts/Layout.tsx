@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 import InteractiveBackground from '../components/InteractiveBackground';
 import LogoPreloader from '../components/LogoPreloader';
 
@@ -12,6 +13,7 @@ const Layout = () => {
   const [navbarReady, setNavbarReady] = useState(() =>
     window.matchMedia('(prefers-reduced-motion: reduce)').matches
   );
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -38,6 +40,11 @@ const Layout = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname]);
 
+  // Cerrar menú móvil al cambiar de ruta
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
   return (
     <div className="app-container">
       <LogoPreloader />
@@ -52,15 +59,26 @@ const Layout = () => {
             <span style={{ color: '#fff' }}>ECO</span>
             <span style={{ color: 'var(--primary)' }}>SISTEMAS</span>
           </Link>
-          <ul className="nav-links">
-            <li><Link to="/">Inicio</Link></li>
-            <li><Link to="/nosotros">Nosotros</Link></li>
-            <li><Link to="/servicios">Servicios</Link></li>
-            <li><Link to="/proyectos">Proyectos</Link></li>
-            <li><Link to="/productos">Productos</Link></li>
-            <li><Link to="/contacto">Contacto</Link></li>
-          </ul>
-          <Link to="/productos" className="btn btn-primary">Catálogo</Link>
+          
+          <button 
+            className="mobile-menu-toggle" 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle mobile menu"
+          >
+            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+
+          <div className={`nav-wrapper ${mobileMenuOpen ? 'mobile-open' : ''}`}>
+            <ul className="nav-links">
+              <li><Link to="/">Inicio</Link></li>
+              <li><Link to="/nosotros">Nosotros</Link></li>
+              <li><Link to="/servicios">Servicios</Link></li>
+              <li><Link to="/proyectos">Proyectos</Link></li>
+              <li><Link to="/productos">Productos</Link></li>
+              <li><Link to="/contacto">Contacto</Link></li>
+            </ul>
+            <Link to="/productos" className="btn btn-primary nav-catalog-btn">Catálogo</Link>
+          </div>
         </div>
       </nav>
 
