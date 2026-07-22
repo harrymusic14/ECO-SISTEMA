@@ -734,7 +734,8 @@ main {
 /* El navegador arrastra las <img> por defecto (drag-and-drop nativo), lo que
    choca con el arrastre propio del carrusel y hace que la imagen se quede
    "pegada" al cursor. Se desactiva ese comportamiento nativo. */
-.carousel-slide img {
+.carousel-slide img,
+.carousel-slide video {
   -webkit-user-drag: none;
   user-drag: none;
   -webkit-touch-callout: none;
@@ -795,6 +796,11 @@ main {
 /* Videos Section (estilo shorts/tiktok, vertical) */
 .video-carousel-track {
   --slide-w: min(230px, 60vw) !important;
+}
+
+/* Clients Section (cuadrado grande) */
+.clients-carousel-track {
+  --slide-w: min(450px, 85vw) !important;
 }
 
 .video-slide {

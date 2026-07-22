@@ -205,3 +205,4 @@ Conexión directa a Postgres verificada y funcionando (proyecto `lozaouuupwjclou
 | 4 — Backlog funcional | Pendiente | — | — | — |
 | 5 — Calidad y CI | Pendiente | — | — | — |
 | 6 — Contenido real | Pendiente | — | — | — |
+| 7 — Optimización (UI/UX) | HECHO | Antigravity | 2026-07-21 | Diseño 100% responsivo (App.css, Layout.tsx menu móvil). Code-splitting con React.lazy para todas las rutas y para modelos pesados (Three.js aislado en su propio chunk, reduciendo Home.js a 21KB). Atributos loading="lazy" implementados. |

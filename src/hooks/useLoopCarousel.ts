@@ -88,13 +88,13 @@ export function useLoopCarousel({
     startXRef.current = e.clientX;
     setIsDragging(true);
     setTransitionEnabled(false);
-    e.currentTarget.setPointerCapture(e.pointerId);
+    // e.currentTarget.setPointerCapture(e.pointerId); // Comentado para no bloquear clicks en hijos
   };
 
   const handlePointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (!draggingRef.current) return;
     const delta = e.clientX - startXRef.current;
-    if (Math.abs(delta) > 5) movedRef.current = true;
+    if (Math.abs(delta) > 10) movedRef.current = true;
     setDragOffset(delta);
   };
 
