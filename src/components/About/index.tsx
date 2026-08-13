@@ -140,13 +140,12 @@ const About = () => {
         }} />
         
         {/* Dark Gradient Overlay para legibilidad del texto (igual a la referencia) */}
-        <div style={{
+        <div className="hero-cover-overlay" style={{
           position: 'absolute',
           top: 0,
           left: 0,
           width: '100%',
           height: '100%',
-          background: 'linear-gradient(to right, rgba(var(--bg-dark-rgb), 0.95) 0%, rgba(var(--bg-dark-rgb), 0.7) 35%, rgba(var(--bg-dark-rgb), 0) 65%)',
           zIndex: 2
         }} />
 

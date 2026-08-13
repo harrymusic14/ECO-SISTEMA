@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './layouts/Layout';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
@@ -13,25 +13,32 @@ const Contact = React.lazy(() => import('./components/Contact'));
 const Login = React.lazy(() => import('./pages/Login'));
 const Admin = React.lazy(() => import('./components/Admin'));
 
-function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="nosotros" element={<About />} />
-        <Route path="servicios" element={<Services />} />
-        <Route path="proyectos" element={<Projects />} />
-        <Route path="productos" element={<Products />} />
-        <Route path="contacto" element={<Contact />} />
-        <Route path="login" element={<Login />} />
-        <Route path="admin" element={
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: "nosotros", element: <About /> },
+      { path: "servicios", element: <Services /> },
+      { path: "proyectos", element: <Projects /> },
+      { path: "productos", element: <Products /> },
+      { path: "contacto", element: <Contact /> },
+      { path: "login", element: <Login /> },
+      { 
+        path: "admin", 
+        element: (
           <ProtectedRoute>
             <Admin />
           </ProtectedRoute>
-        } />
-      </Route>
-    </Routes>
-  );
+        )
+      },
+    ]
+  }
+]);
+
+function App() {
+  return <RouterProvider router={router} />;
 }
 
 export default App;

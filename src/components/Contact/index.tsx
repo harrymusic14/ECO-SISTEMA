@@ -10,7 +10,7 @@ const Contact = () => {
     <>
       <PageHeader title={t('contactHeaderTitle')} subtitle={t('contactHeaderSubtitle')} />
       <div className="container" style={{ paddingBottom: '4rem' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '4rem', alignItems: 'start' }}>
 
           {/* Preguntas Frecuentes (FAQ) */}
           <div>

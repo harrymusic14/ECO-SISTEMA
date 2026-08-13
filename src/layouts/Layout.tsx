@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useState } from 'react';
-import { Outlet, Link, useLocation } from 'react-router-dom';
+import { Outlet, Link, NavLink, useLocation, ScrollRestoration } from 'react-router-dom';
 import { Menu, X, Languages, Sun, Moon } from 'lucide-react';
 import LogoPreloader from '../components/LogoPreloader';
 import BackgroundGlow from '../components/BackgroundGlow';
@@ -98,12 +98,12 @@ const Layout = () => {
 
           <div className={`nav-wrapper ${mobileMenuOpen ? 'mobile-open' : ''}`}>
             <ul className="nav-links">
-              <li><Link to="/">{t('navHome')}</Link></li>
-              <li><Link to="/nosotros">{t('navAbout')}</Link></li>
-              <li><Link to="/servicios">{t('navServices')}</Link></li>
-              <li><Link to="/proyectos">{t('navProjects')}</Link></li>
-              <li><Link to="/productos">{t('navProducts')}</Link></li>
-              <li><Link to="/contacto">{t('navContact')}</Link></li>
+              <li><NavLink to="/" end>{t('navHome')}</NavLink></li>
+              <li><NavLink to="/nosotros">{t('navAbout')}</NavLink></li>
+              <li><NavLink to="/servicios">{t('navServices')}</NavLink></li>
+              <li><NavLink to="/proyectos">{t('navProjects')}</NavLink></li>
+              <li><NavLink to="/productos">{t('navProducts')}</NavLink></li>
+              <li><NavLink to="/contacto">{t('navContact')}</NavLink></li>
             </ul>
             <div className="navbar-actions navbar-actions-desktop">
               <button
@@ -135,6 +135,7 @@ const Layout = () => {
         <Suspense fallback={<div style={{ minHeight: '60vh' }} />}>
           <Outlet />
         </Suspense>
+        <ScrollRestoration />
       </main>
 
       <FloatingSocialButtons />
