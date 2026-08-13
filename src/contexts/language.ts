@@ -290,6 +290,9 @@ export const LanguageContext = createContext<LanguageContextValue | undefined>(u
 export const LANGUAGE_STORAGE_KEY = 'eco-sistemas-language';
 
 export function getInitialLanguage(): Language {
+  // En el servidor no hay localStorage: se asume español (el default de
+  // siempre) y el useEffect del provider corrige del lado del cliente.
+  if (typeof window === 'undefined') return 'es';
   const stored = localStorage.getItem(LANGUAGE_STORAGE_KEY);
   if (stored === 'es' || stored === 'en') return stored;
   return 'es';

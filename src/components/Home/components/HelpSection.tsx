@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { buildExtended, useLoopCarousel } from '../../../hooks/useLoopCarousel';
 import { useLanguage } from '../../../hooks/useLanguage';
 import type { Language } from '../../../contexts/language';

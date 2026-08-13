@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router';
 import { useInView, useSpring } from 'framer-motion';
 import { ShieldCheck, Users, Droplets, Trophy } from 'lucide-react';
 import { supabase } from '../../supabaseClient';
@@ -60,51 +60,33 @@ const FEATURES_DATA: Record<Language, { title: string; desc: string }[]> = {
 
 const FEATURE_ICONS = [<ShieldCheck size={40} />, <Users size={40} />, <Droplets size={40} />, <Trophy size={40} />];
 
+const FALLBACK_CLIENTS = [
+  { id: '1', nombre: 'ACR Ingenieros & Arquitectos' },
+  { id: '2', nombre: 'Arteco Inmobiliaria' },
+  { id: '3', nombre: 'Desarrolladora' },
+  { id: '4', nombre: 'Faber-Castell' },
+  { id: '5', nombre: 'Garden Studio' },
+];
+
+// Se ejecuta en el servidor (SSR) y también en el cliente al navegar acá
+// directamente — la portada y los clientes ya llegan armados en el HTML
+// inicial, en vez de mostrarse recién después de un fetch en el navegador.
+export async function loader() {
+  const [{ data: coverRow }, { data: clientRows, error: clientErr }] = await Promise.all([
+    supabase.from('imagenes_sitio').select('imagen_url').eq('clave', 'nosotros_cover').maybeSingle(),
+    supabase.from('clientes').select('*').order('orden', { ascending: true }),
+  ]);
+
+  const clients = (!clientErr && clientRows && clientRows.length > 0) ? clientRows : FALLBACK_CLIENTS;
+  return { coverUrl: coverRow?.imagen_url ?? null, clients };
+}
+
 const About = () => {
   const { language, t } = useLanguage();
-  const [coverUrl, setCoverUrl] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchCover = async () => {
-      const { data } = await supabase
-        .from('imagenes_sitio')
-        .select('imagen_url')
-        .eq('clave', 'nosotros_cover')
-        .maybeSingle();
-
-      setCoverUrl(data?.imagen_url ?? null);
-    };
-
-    fetchCover();
-  }, []);
+  const { coverUrl, clients } = useLoaderData<typeof loader>();
 
   const timelineData = TIMELINE_DATA[language];
   const features = FEATURES_DATA[language].map((feature, idx) => ({ ...feature, icon: FEATURE_ICONS[idx] }));
-
-  const [clients, setClients] = useState<any[]>([]);
-
-  useEffect(() => {
-    const fetchClientes = async () => {
-      const { data, error } = await supabase
-        .from('clientes')
-        .select('*')
-        .order('orden', { ascending: true });
-        
-      if (!error && data && data.length > 0) {
-        setClients(data);
-      } else {
-        // Fallback temporal si no hay en la DB
-        setClients([
-          { id: '1', nombre: 'ACR Ingenieros & Arquitectos' },
-          { id: '2', nombre: 'Arteco Inmobiliaria' },
-          { id: '3', nombre: 'Desarrolladora' },
-          { id: '4', nombre: 'Faber-Castell' },
-          { id: '5', nombre: 'Garden Studio' }
-        ]);
-      }
-    };
-    fetchClientes();
-  }, []);
 
   const BUFFER = 6;
   const extendedClients = buildExtended(clients, BUFFER);

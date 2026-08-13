@@ -19,9 +19,14 @@ const LogoPreloader = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { theme } = useTheme();
   const initialThemeRef = useRef(theme);
-  const [phase, setPhase] = useState<'in' | 'out' | 'done'>(() =>
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'done' : 'in'
-  );
+  // Arranca siempre en 'in' (igual que el servidor) — comprobar
+  // prefers-reduced-motion recién en el useEffect de abajo evita el
+  // mismatch de hidratación (en el servidor no existe matchMedia).
+  const [phase, setPhase] = useState<'in' | 'out' | 'done'>('in');
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) setPhase('done');
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;

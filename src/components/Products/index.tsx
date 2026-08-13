@@ -1,10 +1,25 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useState } from 'react';
+import { useLoaderData } from 'react-router';
 import { Droplets } from 'lucide-react';
 import { supabase } from '../../supabaseClient';
 import { useLanguage } from '../../hooks/useLanguage';
 import type { TranslationKey } from '../../contexts/language';
 
 const SprinklerScene3D = React.lazy(() => import('./components/SprinklerScene3D'));
+
+// Se ejecuta en el servidor (SSR) y también en el cliente al navegar acá
+// directamente — el catálogo ya llega armado en el HTML inicial en vez de
+// mostrar "cargando..." y recién después el contenido real.
+export async function loader() {
+  // Fetchear los primeros 100 para no saturar, idealmente habría paginación
+  const { data, error } = await supabase
+    .from('productos')
+    .select('*')
+    .limit(100);
+
+  if (error) console.error('Error fetching products:', error);
+  return { products: data ?? [] };
+}
 
 // El "value" es el que se guarda en la base de datos (siempre en español,
 // no se traduce); el "labelKey" es solo lo que se muestra en pantalla.
@@ -21,37 +36,11 @@ const CATEGORIES: { value: string; labelKey: TranslationKey }[] = [
 
 const Products = () => {
   const { t } = useLanguage();
-  const [products, setProducts] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { products } = useLoaderData<typeof loader>();
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('Todas');
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  const fetchProducts = async () => {
-    try {
-      setLoading(true);
-      // Fetchear los primeros 100 para no saturar, idealmente habría paginación
-      const { data, error } = await supabase
-        .from('productos')
-        .select('*')
-        .limit(100);
-
-      if (error) {
-        console.error('Error fetching products:', error);
-      } else {
-        setProducts(data || []);
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const filteredProducts = products.filter(p => {
+  const filteredProducts = products.filter((p: any) => {
     const matchesSearch = p.nombre.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = categoryFilter === 'Todas' || p.categoria === categoryFilter;
     return matchesSearch && matchesCategory;
@@ -114,37 +103,31 @@ const Products = () => {
           </div>
         </div>
 
-        {loading ? (
-          <p style={{ textAlign: 'center', fontSize: '1.2rem', padding: '4rem 0' }}>{t('cargandoCatalogo')}</p>
-        ) : (
-          <>
-            <p style={{ marginBottom: '2rem', color: 'var(--text-muted)' }}>{t('mostrandoProductos', { count: filteredProducts.length })}</p>
-            <div className="products-grid">
-              {filteredProducts.map((product) => (
-                <div key={product.id} className="product-card glass">
-                  <div className="product-img">
-                    <img
-                      src={product.imagen_url || 'https://via.placeholder.com/300x200.png?text=Producto'}
-                      alt={product.nombre}
-                      loading="lazy"
-                      style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'cover' }}
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=400';
-                      }}
-                    />
-                  </div>
-                  <div className="product-info">
-                    <span className="product-category">{product.categoria}</span>
-                    <h3 className="product-name">{product.nombre}</h3>
-                    <button className="btn btn-outline" style={{ width: '100%', marginTop: '1rem', padding: '0.5rem', fontSize: '1rem' }}>{t('solicitarCotizacion')}</button>
-                  </div>
-                </div>
-              ))}
+        <p style={{ marginBottom: '2rem', color: 'var(--text-muted)' }}>{t('mostrandoProductos', { count: filteredProducts.length })}</p>
+        <div className="products-grid">
+          {filteredProducts.map((product: any) => (
+            <div key={product.id} className="product-card glass">
+              <div className="product-img">
+                <img
+                  src={product.imagen_url || 'https://via.placeholder.com/300x200.png?text=Producto'}
+                  alt={product.nombre}
+                  loading="lazy"
+                  style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'cover' }}
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=400';
+                  }}
+                />
+              </div>
+              <div className="product-info">
+                <span className="product-category">{product.categoria}</span>
+                <h3 className="product-name">{product.nombre}</h3>
+                <button className="btn btn-outline" style={{ width: '100%', marginTop: '1rem', padding: '0.5rem', fontSize: '1rem' }}>{t('solicitarCotizacion')}</button>
+              </div>
             </div>
-            {filteredProducts.length === 0 && (
-              <p style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '3rem 0' }}>{t('sinResultados')}</p>
-            )}
-          </>
+          ))}
+        </div>
+        {filteredProducts.length === 0 && (
+          <p style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '3rem 0' }}>{t('sinResultados')}</p>
         )}
       </div>
     </>

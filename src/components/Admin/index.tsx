@@ -4,7 +4,7 @@ import { supabase } from '../../supabaseClient';
 import PageHeader from '../PageHeader';
 import { AdminProductForm } from './components/AdminProductForm';
 import { AdminProductList } from './components/AdminProductList';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 const Admin = () => {
   const navigate = useNavigate();

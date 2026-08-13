@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 

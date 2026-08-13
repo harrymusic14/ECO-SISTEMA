@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import FeaturedProducts from './components/FeaturedProducts';
 import PumpsShowcase from './components/PumpsShowcase';
 import HelpSection from './components/HelpSection';

@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import {
   LanguageContext,
   getInitialLanguage,
@@ -9,9 +9,20 @@ import {
 } from './language';
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>(getInitialLanguage);
+  // Arranca siempre en 'es' (igual que el servidor) — leer localStorage
+  // recién en el useEffect de abajo evita el mismatch de hidratación.
+  const [language, setLanguage] = useState<Language>('es');
+  const correctedRef = useRef(false);
 
   useEffect(() => {
+    if (!correctedRef.current) {
+      correctedRef.current = true;
+      const real = getInitialLanguage();
+      if (real !== language) {
+        setLanguage(real);
+        return; // este efecto se vuelve a correr con el valor ya corregido
+      }
+    }
     document.documentElement.setAttribute('lang', language);
     localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
   }, [language]);

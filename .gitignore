@@ -10,6 +10,8 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+build
+.react-router
 *.local
 
 # secretos locales de Supabase/Postgres (nunca versionar)
@@ -33,3 +35,4 @@ graphify-out/
 *.njsproj
 *.sln
 *.sw?
+.vercel

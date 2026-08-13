@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useState } from 'react';
-import { Outlet, Link, NavLink, useLocation, ScrollRestoration } from 'react-router-dom';
+import { Outlet, Link, NavLink, useLocation, ScrollRestoration } from 'react-router';
 import { Menu, X, Languages, Sun, Moon } from 'lucide-react';
 import LogoPreloader from '../components/LogoPreloader';
 import BackgroundGlow from '../components/BackgroundGlow';
@@ -16,13 +16,18 @@ const NAVBAR_REVEAL_DELAY_MS = 1900;
 
 const Layout = () => {
   const [navbarSolid, setNavbarSolid] = useState(false);
-  const [navbarReady, setNavbarReady] = useState(() =>
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  );
+  // Arranca siempre en false (igual que el servidor) — comprobar
+  // prefers-reduced-motion recién en el useEffect de abajo evita el
+  // mismatch de hidratación (en el servidor no existe matchMedia).
+  const [navbarReady, setNavbarReady] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { language, toggleLanguage, t } = useLanguage();
   const { theme, toggleTheme } = useTheme();
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) setNavbarReady(true);
+  }, []);
 
   useEffect(() => {
     if (navbarReady) return;
