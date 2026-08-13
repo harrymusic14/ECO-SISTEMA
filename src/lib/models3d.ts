@@ -20,7 +20,7 @@ export const MODELS_3D = {
   rotor: {
     url: '/models/rotor3d.glb',
     scale: 2.4,
-    poster: '/assets/fotos/inicio/productos destacados/rotor.jpg',
+    poster: '/assets/fotos/inicio/productos destacados/rotor.webp',
   },
   difusor: {
     url: '/models/difusor3d.glb',

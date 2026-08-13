@@ -64,7 +64,7 @@ const Layout = () => {
       >
         <div className="container">
           <Link to="/" className="logo">
-            <img src="/assets/fotos/logo.png" alt="Eco Sistemas Logo" style={{ width: '40px', height: '40px', marginRight: '0.2rem' }} />
+            <img src="/assets/fotos/logo.webp" alt="Eco Sistemas Logo" style={{ width: '40px', height: '40px', marginRight: '0.2rem' }} />
             <span style={{ color: navbarSolid ? 'var(--text-light)' : '#fff' }}>ECO</span>
             <span style={{ color: 'var(--primary)' }}>SISTEMAS</span>
           </Link>
@@ -145,7 +145,7 @@ const Layout = () => {
         <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '3rem' }}>
           <div>
             <div className="logo" style={{ marginBottom: '1rem' }}>
-              <img src="/assets/fotos/logo.png" alt="Eco Sistemas Logo" style={{ width: '40px', height: '40px', marginRight: '0.2rem' }} />
+              <img src="/assets/fotos/logo.webp" alt="Eco Sistemas Logo" style={{ width: '40px', height: '40px', marginRight: '0.2rem' }} />
               <span style={{ color: 'var(--text-light)' }}>ECO</span>
               <span style={{ color: 'var(--primary)' }}>SISTEMAS</span>
             </div>

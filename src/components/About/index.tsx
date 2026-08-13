@@ -131,7 +131,7 @@ const About = () => {
             priorice, en vez de descubrirla recién cuando React aplica el
             estilo inline. */}
         <img
-          src="/assets/fotos/nosotros/portada.jpg"
+          src="/assets/fotos/nosotros/portada.webp"
           alt=""
           fetchPriority="high"
           style={{
@@ -230,7 +230,7 @@ const About = () => {
             style={{ height: '500px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '12px', overflow: 'hidden' }}
           >
             <img
-              src={coverUrl || '/assets/fotos/nosotros/pexels-gustavo-fring-4975384.jpg'}
+              src={coverUrl || '/assets/fotos/nosotros/pexels-gustavo-fring-4975384.webp'}
               alt={t('aboutImageAlt')}
               loading="lazy"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}

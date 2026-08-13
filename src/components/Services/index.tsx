@@ -12,20 +12,20 @@ type Solution = { title: string; features: string[]; icon: React.ReactNode; imag
 // como respaldo (onError oculta la <img> rota) sin que se vea nada feo.
 const SOLUTIONS: Record<Language, Solution[]> = {
   es: [
-    { title: 'Riego por Aspersión', features: ['Cobertura amplia y uniforme', 'Ideal para jardines, parques y campos deportivos'], icon: <Waves size={56} />, image: '/assets/fotos/servicios/soluciones/aspersion.jpg' },
-    { title: 'Riego por Goteo', features: ['Entrega el agua directo a la raíz', 'Ahorra agua en cultivos y jardines'], icon: <Droplets size={56} />, image: '/assets/fotos/servicios/soluciones/goteo.jpg' },
-    { title: 'Riego por Microaspersión', features: ['Caudal controlado y preciso', 'Ideal para plantas ornamentales'], icon: <Sprout size={56} />, image: '/assets/fotos/servicios/soluciones/microaspersion.jpg' },
-    { title: 'Riego por Nebulización', features: ['Genera una fina neblina refrescante', 'Ideal para invernaderos y viveros'], icon: <CloudDrizzle size={56} />, image: '/assets/fotos/servicios/soluciones/nebulizacion.jpg' },
+    { title: 'Riego por Aspersión', features: ['Cobertura amplia y uniforme', 'Ideal para jardines, parques y campos deportivos'], icon: <Waves size={56} />, image: '/assets/fotos/servicios/soluciones/aspersion.webp' },
+    { title: 'Riego por Goteo', features: ['Entrega el agua directo a la raíz', 'Ahorra agua en cultivos y jardines'], icon: <Droplets size={56} />, image: '/assets/fotos/servicios/soluciones/goteo.webp' },
+    { title: 'Riego por Microaspersión', features: ['Caudal controlado y preciso', 'Ideal para plantas ornamentales'], icon: <Sprout size={56} />, image: '/assets/fotos/servicios/soluciones/microaspersion.webp' },
+    { title: 'Riego por Nebulización', features: ['Genera una fina neblina refrescante', 'Ideal para invernaderos y viveros'], icon: <CloudDrizzle size={56} />, image: '/assets/fotos/servicios/soluciones/nebulizacion.webp' },
     { title: 'Sistema de Presión Constante', features: ['Presión de agua siempre estable', 'Sin importar la demanda'], icon: <Gauge size={56} />, image: '/assets/fotos/servicios/soluciones/presion-constante.webp' },
-    { title: 'Sistema Hidroneumático', features: ['Almacena y distribuye agua a presión', 'Eficiente en edificios y viviendas'], icon: <Zap size={56} />, image: '/assets/fotos/servicios/soluciones/hidroneumatico.jpg' },
+    { title: 'Sistema Hidroneumático', features: ['Almacena y distribuye agua a presión', 'Eficiente en edificios y viviendas'], icon: <Zap size={56} />, image: '/assets/fotos/servicios/soluciones/hidroneumatico.webp' },
   ],
   en: [
-    { title: 'Sprinkler Irrigation', features: ['Wide, uniform coverage', 'Ideal for gardens, parks, and sports fields'], icon: <Waves size={56} />, image: '/assets/fotos/servicios/soluciones/aspersion.jpg' },
-    { title: 'Drip Irrigation', features: ['Delivers water straight to the root', 'Saves water in crops and gardens'], icon: <Droplets size={56} />, image: '/assets/fotos/servicios/soluciones/goteo.jpg' },
-    { title: 'Micro-Sprinkler Irrigation', features: ['Precise, controlled flow', 'Ideal for ornamental plants'], icon: <Sprout size={56} />, image: '/assets/fotos/servicios/soluciones/microaspersion.jpg' },
-    { title: 'Fog Irrigation', features: ['Creates a fine, cooling mist', 'Ideal for greenhouses and nurseries'], icon: <CloudDrizzle size={56} />, image: '/assets/fotos/servicios/soluciones/nebulizacion.jpg' },
+    { title: 'Sprinkler Irrigation', features: ['Wide, uniform coverage', 'Ideal for gardens, parks, and sports fields'], icon: <Waves size={56} />, image: '/assets/fotos/servicios/soluciones/aspersion.webp' },
+    { title: 'Drip Irrigation', features: ['Delivers water straight to the root', 'Saves water in crops and gardens'], icon: <Droplets size={56} />, image: '/assets/fotos/servicios/soluciones/goteo.webp' },
+    { title: 'Micro-Sprinkler Irrigation', features: ['Precise, controlled flow', 'Ideal for ornamental plants'], icon: <Sprout size={56} />, image: '/assets/fotos/servicios/soluciones/microaspersion.webp' },
+    { title: 'Fog Irrigation', features: ['Creates a fine, cooling mist', 'Ideal for greenhouses and nurseries'], icon: <CloudDrizzle size={56} />, image: '/assets/fotos/servicios/soluciones/nebulizacion.webp' },
     { title: 'Constant Pressure System', features: ['Water pressure always stable', 'Regardless of demand'], icon: <Gauge size={56} />, image: '/assets/fotos/servicios/soluciones/presion-constante.webp' },
-    { title: 'Hydropneumatic System', features: ['Stores and distributes pressurized water', 'Efficient in buildings and homes'], icon: <Zap size={56} />, image: '/assets/fotos/servicios/soluciones/hidroneumatico.jpg' },
+    { title: 'Hydropneumatic System', features: ['Stores and distributes pressurized water', 'Efficient in buildings and homes'], icon: <Zap size={56} />, image: '/assets/fotos/servicios/soluciones/hidroneumatico.webp' },
   ],
 };
 
@@ -64,7 +64,7 @@ const Services = () => {
             priorice, en vez de descubrirla recién cuando React aplica el
             estilo inline. */}
         <img
-          src="/assets/fotos/servicios/pexels-mehmet-demir-663414275-29067120.jpg"
+          src="/assets/fotos/servicios/pexels-mehmet-demir-663414275-29067120.webp"
           alt=""
           fetchPriority="high"
           style={{

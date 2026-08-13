@@ -15,19 +15,19 @@ import type { Language } from '../../contexts/language';
 const HERO_SLIDES: Record<Language, { image: string; title: React.ReactNode; description: string; position: 'left' | 'center' | 'right' }[]> = {
   es: [
     {
-      image: '/assets/fotos/inicio/portada/lumin-osity-6DMht7wYt6g-unsplash.jpg',
+      image: '/assets/fotos/inicio/portada/lumin-osity-6DMht7wYt6g-unsplash.webp',
       title: <>Riego <span>Agrícola</span></>,
       description: 'Sistemas de riego tecnificado que maximizan el rendimiento de tus cultivos, campo tras campo.',
       position: 'center',
     },
     {
-      image: '/assets/fotos/inicio/portada/parque_aspersores_hd.jpg',
+      image: '/assets/fotos/inicio/portada/parque_aspersores_hd.webp',
       title: <>Riego para <span>Parques y Jardines</span></>,
       description: 'Cobertura uniforme para áreas verdes exuberantes, todo el año.',
       position: 'left',
     },
     {
-      image: '/assets/fotos/inicio/portada/tilak-teja-S-LAOuZV6vA-unsplash.jpg',
+      image: '/assets/fotos/inicio/portada/tilak-teja-S-LAOuZV6vA-unsplash.webp',
       title: <>Proyectos <span>Integrales</span></>,
       description: 'Diseño e instalación de sistemas hidráulicos de alta eficiencia para la industria y la construcción.',
       position: 'right',
@@ -35,19 +35,19 @@ const HERO_SLIDES: Record<Language, { image: string; title: React.ReactNode; des
   ],
   en: [
     {
-      image: '/assets/fotos/inicio/portada/lumin-osity-6DMht7wYt6g-unsplash.jpg',
+      image: '/assets/fotos/inicio/portada/lumin-osity-6DMht7wYt6g-unsplash.webp',
       title: <>Agricultural <span>Irrigation</span></>,
       description: 'Advanced irrigation systems that maximize your crop yield, field after field.',
       position: 'center',
     },
     {
-      image: '/assets/fotos/inicio/portada/parque_aspersores_hd.jpg',
+      image: '/assets/fotos/inicio/portada/parque_aspersores_hd.webp',
       title: <>Irrigation for <span>Parks and Gardens</span></>,
       description: 'Uniform coverage for lush green areas, all year round.',
       position: 'left',
     },
     {
-      image: '/assets/fotos/inicio/portada/tilak-teja-S-LAOuZV6vA-unsplash.jpg',
+      image: '/assets/fotos/inicio/portada/tilak-teja-S-LAOuZV6vA-unsplash.webp',
       title: <>Integral <span>Projects</span></>,
       description: 'Design and installation of high-efficiency hydraulic systems for industry and construction.',
       position: 'right',

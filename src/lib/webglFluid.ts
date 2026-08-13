@@ -718,7 +718,7 @@ export function initFluidSimulation(
     return obj;
   }
 
-  const ditheringTexture = createTextureAsync('/assets/fotos/LDR_LLL1_0.png');
+  const ditheringTexture = createTextureAsync('/assets/fotos/LDR_LLL1_0.webp');
 
   const blurProgram = new Program(blurVertexShader, blurShader);
   const copyProgram = new Program(baseVertexShader, copyShader);

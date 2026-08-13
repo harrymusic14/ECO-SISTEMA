@@ -15,15 +15,15 @@ interface Proyecto {
 // Respaldo local por si la fila en Supabase todavía no tiene imagen_url
 // (evita depender de una migración a la base de datos en producción).
 const PROJECT_PHOTOS: Record<string, string> = {
-  'Saga Falabella - Lurin': '/assets/fotos/proyectos/1200x630-Logo_Fala.jpg',
-  'Mega Plaza Huaral': '/assets/fotos/proyectos/Megaplaza_logo.png',
-  'Torre Panama': '/assets/fotos/proyectos/torre-panama.jpg',
-  'Mall del Sur': '/assets/fotos/proyectos/mall-del-sur.jpg',
-  'Plaza Norte': '/assets/fotos/proyectos/plaza-norte.jpg',
-  'Depas y Club Huachipa': '/assets/fotos/proyectos/depas-huachipa.jpg',
-  'Vive Puerto Viejo - Kentia': '/assets/fotos/proyectos/KENTIA.jpg',
-  'Haras Los Eucaliptos - Canete': '/assets/fotos/proyectos/HARAS-EUCALIPTOS.jpg',
-  'Country San Antonio - Canete': '/assets/fotos/proyectos/COUNTRY-SAN-ANTONIO-CANETE.jpg',
+  'Saga Falabella - Lurin': '/assets/fotos/proyectos/1200x630-Logo_Fala.webp',
+  'Mega Plaza Huaral': '/assets/fotos/proyectos/Megaplaza_logo.webp',
+  'Torre Panama': '/assets/fotos/proyectos/torre-panama.webp',
+  'Mall del Sur': '/assets/fotos/proyectos/mall-del-sur.webp',
+  'Plaza Norte': '/assets/fotos/proyectos/plaza-norte.webp',
+  'Depas y Club Huachipa': '/assets/fotos/proyectos/depas-huachipa.webp',
+  'Vive Puerto Viejo - Kentia': '/assets/fotos/proyectos/KENTIA.webp',
+  'Haras Los Eucaliptos - Canete': '/assets/fotos/proyectos/HARAS-EUCALIPTOS.webp',
+  'Country San Antonio - Canete': '/assets/fotos/proyectos/COUNTRY-SAN-ANTONIO-CANETE.webp',
 };
 
 const Projects = () => {

@@ -48,8 +48,8 @@ const LogoPreloader = () => {
       <div className="logo-preloader-glow" />
       <div className="logo-preloader-stage">
         <div className="logo-preloader-shadow" />
-        <img src="/assets/fotos/logo.png" alt="" className="logo-preloader-face logo-preloader-face-front" />
-        <img src="/assets/fotos/logo.png" alt="" className="logo-preloader-face logo-preloader-face-back" />
+        <img src="/assets/fotos/logo.webp" alt="" className="logo-preloader-face logo-preloader-face-front" />
+        <img src="/assets/fotos/logo.webp" alt="" className="logo-preloader-face logo-preloader-face-back" />
       </div>
     </div>
   );
