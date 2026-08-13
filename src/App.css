@@ -4,15 +4,145 @@
   flex-direction: column;
 }
 
-.interactive-background {
+/* Botón flotante de WhatsApp */
+.whatsapp-float {
+  position: fixed;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+  z-index: 9000;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 26px rgba(37, 211, 102, 0.65);
+}
+
+@media (max-width: 768px) {
+  .whatsapp-float {
+    left: 1rem;
+    bottom: 1rem;
+    width: 52px;
+    height: 52px;
+  }
+}
+
+/* Íconos de redes sociales flotantes, apilados justo arriba del de WhatsApp */
+.social-float-stack {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.social-float-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.social-float-btn:hover {
+  transform: scale(1.08);
+}
+
+.social-float-instagram {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+}
+
+.social-float-facebook {
+  background: #1877f2;
+}
+
+.social-float-tiktok {
+  background: #000;
+}
+
+@media (max-width: 768px) {
+  .social-float-stack {
+    right: 1rem;
+    bottom: 1rem;
+    gap: 0.6rem;
+  }
+
+  .social-float-btn {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* Fondo global: manchas de color difuminadas detrás de todo el contenido */
+.background-glow {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
-  /* Más negativo que .hero-video-bg (-2) para que el video de la portada
-     quede siempre encima: este canvas pinta un fondo opaco cada cuadro. */
   z-index: -3;
+  overflow: hidden;
   pointer-events: none;
+}
+
+.background-glow-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(110px);
+  opacity: 0.32;
+  animation: background-glow-drift 24s ease-in-out infinite alternate;
+}
+
+.background-glow-blob-1 {
+  width: 560px;
+  height: 560px;
+  top: -160px;
+  left: -120px;
+  background: var(--primary);
+}
+
+.background-glow-blob-2 {
+  width: 480px;
+  height: 480px;
+  bottom: -180px;
+  right: -100px;
+  background: var(--primary-dark);
+  animation-duration: 28s;
+  animation-delay: -8s;
+}
+
+.background-glow-blob-3 {
+  width: 420px;
+  height: 420px;
+  top: 45%;
+  left: 55%;
+  background: var(--primary);
+  opacity: 0.2;
+  animation-duration: 32s;
+  animation-delay: -16s;
+}
+
+@keyframes background-glow-drift {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(50px, 35px) scale(1.1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .background-glow-blob {
+    animation: none;
+  }
 }
 
 .logo-preloader {
@@ -127,6 +257,55 @@ main {
   flex: 1;
 }
 
+/* Barra de ofertas: franja fija arriba de todo, con texto en loop continuo
+   tipo "ruleta" (dos copias del contenido una detrás de otra: cuando la
+   primera sale de pantalla, la segunda ya está entrando, sin salto visible). */
+.offer-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--offer-bar-height);
+  z-index: 1001;
+  background: var(--primary);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.offer-bar-track {
+  display: flex;
+  white-space: nowrap;
+  animation: offer-bar-scroll 22s linear infinite;
+}
+
+.offer-bar-track-content {
+  display: flex;
+  align-items: center;
+}
+
+.offer-bar-item {
+  display: inline-block;
+  padding: 0 2.5rem;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #000;
+}
+
+@keyframes offer-bar-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .offer-bar-track {
+    animation: none;
+  }
+}
+
 /* Header / Navbar */
 /* La entrada se dispara con la clase .navbar-in (controlada desde React en
    Layout.tsx, sincronizada con el splash del logo) en vez de un
@@ -134,7 +313,7 @@ main {
    más fácil de verificar que se dispara. */
 .navbar {
   position: fixed;
-  top: 0;
+  top: var(--offer-bar-height);
   left: 0;
   width: 100%;
   z-index: 1000;
@@ -185,6 +364,27 @@ main {
   color: var(--primary);
 }
 
+/* Cuando el navbar está transparente (arriba del hero, antes de hacer scroll)
+   fijamos el texto a un tono claro con sombra, en vez de seguir el tema —
+   la foto/video de fondo no cambia con el tema, así que el texto del navbar
+   tampoco debería depender de él ahí. En cuanto aparece el fondo sólido
+   (.glass), el texto vuelve a seguir el tema normalmente. */
+.navbar-transparent .nav-links a,
+.navbar-transparent .icon-toggle-btn,
+.navbar-transparent .mobile-menu-toggle {
+  color: #fff;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.navbar-transparent .icon-toggle-btn {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.navbar-transparent .nav-links a:hover,
+.navbar-transparent .icon-toggle-btn:hover {
+  color: var(--primary);
+}
+
 /* Hero Section */
 .hero {
   position: relative;
@@ -205,15 +405,51 @@ main {
   filter: brightness(0.85);
 }
 
+/* Hero con fotos en transición (mientras se define el video definitivo):
+   se apilan todas las fotos y solo se desvanece la que está activa, para
+   un cruce suave en vez de un salto. */
+.hero-bg-photo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.hero-bg-photo.active {
+  opacity: 1;
+}
+
 .hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  /* Un gradiente mucho más suave para que el video se vea claro pero el texto siga siendo legible */
+  /* Un gradiente mucho más suave para que la foto/video se vea nítido pero el
+     texto siga siendo legible. Fijo (no varía con el tema): da contraste
+     sobre la imagen de fondo, que no cambia de color. Por defecto oscurece
+     la izquierda (texto a la izquierda); las variantes de abajo lo mueven
+     según dónde esté el texto en cada slide. */
   background: linear-gradient(to right, rgba(15,23,42,0.6) 0%, rgba(15,23,42,0.1) 100%);
   z-index: -1;
+}
+
+.hero-overlay-left {
+  background: linear-gradient(to right, rgba(15,23,42,0.6) 0%, rgba(15,23,42,0.15) 45%, rgba(15,23,42,0.05) 100%);
+}
+
+.hero-overlay-right {
+  background: linear-gradient(to left, rgba(15,23,42,0.6) 0%, rgba(15,23,42,0.15) 45%, rgba(15,23,42,0.05) 100%);
+}
+
+.hero-overlay-center {
+  background: radial-gradient(ellipse at center, rgba(15,23,42,0.6) 0%, rgba(15,23,42,0.2) 55%, rgba(15,23,42,0.05) 100%);
 }
 
 .hero-content {
@@ -226,6 +462,7 @@ main {
   font-size: 5rem;
   font-weight: 700;
   margin-bottom: 1rem;
+  /* Fijo a propósito: el texto va sobre el VIDEO de fondo, que no cambia con el tema. */
   color: #fff;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -262,6 +499,119 @@ main {
   color: var(--primary);
 }
 
+/* Portada de Productos: título a la izquierda, aspersor 3D a la derecha con
+   tarjeta flotante de caudal (calcado del diseño hecho en el otro proyecto). */
+.products-hero {
+  position: relative;
+  padding: 2.5rem 0;
+  margin-bottom: 3rem;
+  background: linear-gradient(to right, var(--bg-dark), var(--bg-card));
+  border-bottom: 4px solid var(--primary);
+  overflow: hidden;
+}
+
+/* Fondo tipo plano técnico (grilla cuadriculada), igual al diseño original */
+.products-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--text-light) 1px, transparent 1px),
+    linear-gradient(90deg, var(--text-light) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.products-hero-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.products-hero-text h1 {
+  font-size: 2.6rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.products-hero-text p {
+  font-size: 1.1rem;
+  color: var(--primary);
+}
+
+.products-hero-3d {
+  display: none;
+  position: relative;
+  height: 260px;
+}
+
+.products-hero-flow-card {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--primary);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.products-hero-flow-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--primary);
+}
+
+.products-hero-flow-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.15rem;
+}
+
+.products-hero-flow-value {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-light);
+}
+
+.products-hero-flow-value span {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+@media (min-width: 992px) {
+  .products-hero-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .products-hero-3d {
+    display: block;
+  }
+}
+
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -270,10 +620,10 @@ main {
 }
 
 .product-card {
-  border: 4px solid #1e293b;
-  background-color: #0f172a;
+  border: 4px solid var(--bg-card);
+  background-color: var(--bg-dark);
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
   position: relative;
 }
 
@@ -288,7 +638,7 @@ main {
 }
 
 .product-card:hover {
-  border-color: #334155;
+  border-color: var(--bg-elevated);
   transform: translateY(-5px);
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
@@ -300,7 +650,7 @@ main {
 .product-img {
   width: 100%;
   height: 200px;
-  background-color: #2a3b52;
+  background-color: var(--bg-elevated);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -308,7 +658,7 @@ main {
 
 .product-info {
   padding: 1.5rem;
-  border-top: 1px solid #1e293b;
+  border-top: 1px solid var(--bg-card);
 }
 
 .product-category {
@@ -326,7 +676,7 @@ main {
   font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: #fff;
+  color: var(--text-light);
   text-transform: uppercase;
   line-height: 1.2;
 }
@@ -342,114 +692,87 @@ main {
   }
 }
 
-/* Reveal on scroll: las secciones no se animan solas, se activan cuando
-   entran al viewport (ver src/hooks/useReveal.ts y src/components/Reveal.tsx) */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-}
-
 /* Featured Products (portada) */
 .featured-products {
-  padding: 2rem 1rem 4rem;
+  padding: 2rem 0 4rem;
 }
 
-.featured-products-list {
+/* Grilla estática de tarjetas (no carrusel con loop): solo hay 2 productos
+   destacados (rotor y difusor), así que se muestran ambos a la vez, sin
+   duplicados ni animación de "siguiente". */
+.featured-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 900px;
+}
+
+.featured-product-card {
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  cursor: pointer;
 }
 
-.featured-product {
+.featured-product-card.active {
+  border-color: var(--primary);
+}
+
+.featured-product-card-media {
+  width: 100%;
+  height: 220px;
+  background-color: var(--bg-elevated);
   display: flex;
   align-items: center;
-  gap: 3rem;
-  padding: 3rem 0;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.featured-product-info {
-  flex: 1 1 400px;
+.featured-product-card-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.featured-product-heading {
+.featured-product-card-info {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.5rem;
+  flex-direction: column;
+  flex: 1;
 }
 
-.featured-product-heading h3 {
-  font-size: 3rem;
-  color: #fff;
-}
-
-.featured-product-badge {
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #000;
-  background-color: var(--primary);
-  padding: 0.4rem 1.1rem;
-}
-
-.featured-product-features {
+.featured-product-card-features {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 0.5rem;
+  margin: 0.5rem 0 1.25rem;
+  flex: 1;
 }
 
-.featured-product-features li {
+.featured-product-card-features li {
   position: relative;
-  padding-left: 1.75rem;
-  color: #e2e8f0;
-  font-size: 1.4rem;
+  padding-left: 1.1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
-.featured-product-features li::before {
+.featured-product-card-features li::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 0.6em;
-  width: 10px;
-  height: 10px;
+  top: 0.5em;
+  width: 6px;
+  height: 6px;
   background-color: var(--primary);
 }
 
-.featured-product-info .btn {
-  font-size: 1.3rem;
-  padding: 1rem 2.25rem;
-}
-
-.featured-product-visual {
-  flex: 1 1 420px;
-  display: flex;
-  justify-content: center;
-  perspective: 1200px;
+.featured-product-card-info .btn {
+  align-self: flex-start;
 }
 
 .featured-product-3d {
-  width: 380px;
-  height: 380px;
-  max-width: 100%;
+  width: 100%;
+  height: 100%;
   filter: drop-shadow(0 10px 25px rgba(0, 210, 255, 0.25));
   cursor: grab;
 }
@@ -458,20 +781,30 @@ main {
   cursor: grabbing;
 }
 
-@media (max-width: 768px) {
-  .featured-product {
-    flex-direction: column !important;
-    padding: 2rem 1.5rem;
-    text-align: center;
-  }
+/* Indicador de carga dentro del Canvas 3D (vía <Html> de drei) */
+.model3d-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--primary);
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
 
-  .featured-product-heading {
-    justify-content: center;
-  }
+.model3d-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: model3d-spin 0.8s linear infinite;
+}
 
-  .featured-product-features li {
-    text-align: left;
-  }
+@keyframes model3d-spin {
+  to { transform: rotate(360deg); }
 }
 
 /* Pumps Showcase (electrobombas) */
@@ -483,7 +816,7 @@ main {
   display: flex;
   align-items: center;
   gap: 3rem;
-  background: linear-gradient(120deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(120deg, var(--bg-dark) 0%, var(--bg-card) 100%);
   border: 1px solid var(--border-color);
   padding: 4.5rem 4rem;
 }
@@ -498,12 +831,12 @@ main {
 
 .pumps-banner-info h3 {
   font-size: 3.2rem;
-  color: #fff;
+  color: var(--text-light);
 }
 
 .pumps-banner-info p {
   font-size: 1.5rem;
-  color: #e2e8f0;
+  color: var(--text-secondary);
   max-width: 36ch;
 }
 
@@ -535,8 +868,8 @@ main {
 
 .pumps-tab {
   flex: 1 1 200px;
-  background-color: #1e293b;
-  color: #e2e8f0;
+  background-color: var(--bg-card);
+  color: var(--text-secondary);
   border: none;
   border-right: 1px solid var(--border-color);
   padding: 1.75rem 1.25rem;
@@ -553,7 +886,7 @@ main {
 }
 
 .pumps-tab:hover {
-  background-color: #334155;
+  background-color: var(--bg-elevated);
 }
 
 .pumps-tab.active {
@@ -571,7 +904,7 @@ main {
 
 .pumps-grid-item {
   position: relative;
-  background: linear-gradient(120deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(120deg, var(--bg-dark) 0%, var(--bg-card) 100%);
   border: 1px solid var(--border-color);
   padding: 2.5rem 1.5rem;
   display: flex;
@@ -636,7 +969,7 @@ main {
 
 .pumps-grid-item h4 {
   font-size: 1.3rem;
-  color: #fff;
+  color: var(--text-light);
   text-align: center;
 }
 
@@ -687,7 +1020,7 @@ main {
   font-size: 3.2rem;
   text-align: center;
   margin-bottom: 3.5rem;
-  color: #fff;
+  color: var(--text-light);
 }
 
 .dashed-title-line {
@@ -750,7 +1083,7 @@ main {
   display: flex;
   align-items: center;
   gap: 3rem;
-  background: linear-gradient(120deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(120deg, var(--bg-dark) 0%, var(--bg-card) 100%);
   border: 1px solid var(--primary);
   padding: 3.5rem;
   min-height: 360px;
@@ -767,12 +1100,12 @@ main {
 
 .help-card-info h3 {
   font-size: 2.3rem;
-  color: #fff;
+  color: var(--text-light);
 }
 
 .help-card-info p {
   font-size: 1.2rem;
-  color: #e2e8f0;
+  color: var(--text-secondary);
   max-width: 46ch;
   line-height: 1.55;
 }
@@ -801,6 +1134,115 @@ main {
 /* Clients Section (cuadrado grande) */
 .clients-carousel-track {
   --slide-w: min(450px, 85vw) !important;
+}
+
+/* Soluciones (Servicios): ruleta con una tarjeta grande a la vez —
+   foto a un lado, título + checklist al otro (igual al layout de
+   "¿Necesitas una pieza especial?" que pidió el usuario). */
+.solutions-track {
+  --slide-w: min(900px, 92vw) !important;
+}
+
+.solution-slide {
+  opacity: 0.3;
+  transition: opacity 0.4s ease;
+  cursor: pointer;
+}
+
+.solution-slide.active {
+  opacity: 1;
+  cursor: default;
+}
+
+.solution-card-big {
+  display: flex;
+  align-items: stretch;
+  gap: 2.5rem;
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  min-height: 340px;
+}
+
+.solution-card-big-visual {
+  position: relative;
+  flex: 0 0 42%;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--bg-elevated);
+}
+
+.solution-card-big-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+}
+
+/* Si la foto carga bien, tapa el ícono; si el archivo todavía no existe
+   (404), onError la oculta y el ícono queda como respaldo visible. */
+.solution-card-big-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.solution-card-big-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.solution-card-big-info h3 {
+  font-size: 1.8rem;
+  color: var(--text-light);
+  margin-bottom: 1.25rem;
+}
+
+.solution-card-big-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.solution-card-big-check-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+}
+
+.solution-card-big-check-item svg {
+  flex-shrink: 0;
+  color: var(--primary);
+}
+
+@media (max-width: 640px) {
+  .solution-card-big {
+    flex-direction: column;
+    padding: 1.5rem;
+    min-height: 0;
+  }
+
+  .solution-card-big-visual {
+    flex: 0 0 200px;
+  }
+
+  .solution-card-big-info {
+    text-align: center;
+  }
+
+  .solution-card-big-check-item {
+    justify-content: center;
+  }
 }
 
 .video-slide {
@@ -834,31 +1276,6 @@ main {
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-.video-card-expand {
-  position: absolute;
-  top: 0.6rem;
-  right: 0.6rem;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(0, 0, 0, 0.55);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.video-card-expand:hover {
-  background: var(--primary);
-  color: #000;
-  transform: scale(1.08);
 }
 
 .video-card-title {
@@ -909,17 +1326,26 @@ main {
   position: fixed;
   inset: 0;
   z-index: 10000;
-  background: rgba(0, 0, 0, 0.92);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 2rem;
   animation: video-modal-fade 0.25s ease;
 }
 
 .video-modal-media {
+  /* El video es vertical (9:16): se define por altura y el ancho se ajusta
+     solo, así ocupa de verdad la pantalla en vez de quedar chico y perdido
+     en medio del fondo. */
+  height: min(94vh, 900px);
+  width: auto;
   max-width: 92vw;
   max-height: 92vh;
   background: #000;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
   animation: video-modal-appear 0.4s cubic-bezier(0.3, 0.4, 0.3, 1);
 }
 
@@ -996,5 +1422,29 @@ main {
 
   .help-card-photo {
     height: 180px;
+  }
+}
+
+/* Servicios: las 4 tarjetas van en una sola fila para que el navegador las
+   estire parejo (mismo alto exacto) — con 2 filas de 2, cada fila se estira
+   por separado y quedan de distinto tamaño según el texto de cada una. */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  align-items: stretch;
+}
+
+/* Paso intermedio a 2 columnas para tablets/laptops chicas — saltar directo
+   de 4 a 1 columna dejaba las tarjetas muy apretadas en ese rango. */
+@media (max-width: 1200px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .services-grid {
+    grid-template-columns: 1fr;
   }
 }

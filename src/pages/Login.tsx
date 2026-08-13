@@ -49,7 +49,7 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                style={{ width: '100%', padding: '1rem', background: '#0f172a', border: '2px solid #334155', color: '#fff', outline: 'none', borderRadius: '4px' }}
+                style={{ width: '100%', padding: '1rem', background: 'var(--bg-dark)', border: '2px solid var(--bg-elevated)', color: 'var(--text-light)', outline: 'none', borderRadius: '4px' }}
               />
             </div>
             <div>
@@ -59,7 +59,7 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                style={{ width: '100%', padding: '1rem', background: '#0f172a', border: '2px solid #334155', color: '#fff', outline: 'none', borderRadius: '4px' }}
+                style={{ width: '100%', padding: '1rem', background: 'var(--bg-dark)', border: '2px solid var(--bg-elevated)', color: 'var(--text-light)', outline: 'none', borderRadius: '4px' }}
               />
             </div>
             <button type="submit" className="btn btn-primary" disabled={loading} style={{ marginTop: '1rem' }}>

@@ -50,7 +50,15 @@ function isMobileDevice() {
   return /Mobi|Android/i.test(navigator.userAgent);
 }
 
-export function initFluidSimulation(canvas: HTMLCanvasElement): (() => void) | null {
+export interface FluidSimulationHandle {
+  destroy: () => void;
+  setBackColor: (color: { r: number; g: number; b: number }) => void;
+}
+
+export function initFluidSimulation(
+  canvas: HTMLCanvasElement,
+  initialBackColor?: { r: number; g: number; b: number }
+): FluidSimulationHandle | null {
   const params = { alpha: true, depth: false, stencil: false, antialias: false, preserveDrawingBuffer: false };
 
   let gl: any = canvas.getContext('webgl2', params);
@@ -130,7 +138,7 @@ export function initFluidSimulation(canvas: HTMLCanvasElement): (() => void) | n
     SHADING: true,
     COLORFUL: true,
     COLOR_UPDATE_SPEED: 4,
-    BACK_COLOR: { r: 15, g: 23, b: 42 },
+    BACK_COLOR: initialBackColor ?? { r: 15, g: 23, b: 42 },
     TRANSPARENT: false,
     BLOOM: true,
     BLOOM_ITERATIONS: 8,
@@ -710,7 +718,7 @@ export function initFluidSimulation(canvas: HTMLCanvasElement): (() => void) | n
     return obj;
   }
 
-  const ditheringTexture = createTextureAsync('/LDR_LLL1_0.png');
+  const ditheringTexture = createTextureAsync('/assets/fotos/LDR_LLL1_0.png');
 
   const blurProgram = new Program(blurVertexShader, blurShader);
   const copyProgram = new Program(baseVertexShader, copyShader);
@@ -1264,12 +1272,17 @@ export function initFluidSimulation(canvas: HTMLCanvasElement): (() => void) | n
 
   rafId = requestAnimationFrame(frame);
 
-  return function destroy() {
-    running = false;
-    cancelAnimationFrame(rafId);
-    window.removeEventListener('mousemove', onMouseMove);
-    window.removeEventListener('touchstart', onTouchStart);
-    window.removeEventListener('touchmove', onTouchMove);
-    document.removeEventListener('visibilitychange', handleVisibility);
+  return {
+    destroy() {
+      running = false;
+      cancelAnimationFrame(rafId);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('visibilitychange', handleVisibility);
+    },
+    setBackColor(color: { r: number; g: number; b: number }) {
+      config.BACK_COLOR = color;
+    },
   };
 }

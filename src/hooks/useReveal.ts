@@ -1,8 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 
-export function useReveal<T extends HTMLElement = HTMLDivElement>() {
+interface UseRevealOptions {
+  threshold?: number;
+  rootMargin?: string;
+}
+
+export function useReveal<T extends HTMLElement = HTMLDivElement>(options?: UseRevealOptions) {
   const ref = useRef<T | null>(null);
   const [visible, setVisible] = useState(false);
+  const { threshold = 0.15, rootMargin = '0px 0px -10% 0px' } = options ?? {};
 
   useEffect(() => {
     const el = ref.current;
@@ -15,11 +21,12 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
           observer.unobserve(el);
         }
       },
-      { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
+      { threshold, rootMargin }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { ref, visible };

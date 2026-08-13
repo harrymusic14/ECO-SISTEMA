@@ -1,8 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { initFluidSimulation } from '../lib/webglFluid';
+import { useTheme } from '../hooks/useTheme';
 
 const DISPLAY_MS = 1900;
 const FADE_MS = 500;
+
+const BACK_COLOR_BY_THEME = {
+  dark: { r: 15, g: 23, b: 42 },
+  light: { r: 226, g: 232, b: 240 },
+};
 
 /** Animación de bienvenida con el logo que aparece al recargar la página
  * (una sola vez, no en cada navegación interna del SPA ya que Layout no se
@@ -11,6 +17,8 @@ const FADE_MS = 500;
  * página real detrás. Respeta prefers-reduced-motion. */
 const LogoPreloader = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { theme } = useTheme();
+  const initialThemeRef = useRef(theme);
   const [phase, setPhase] = useState<'in' | 'out' | 'done'>(() =>
     window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'done' : 'in'
   );
@@ -18,8 +26,8 @@ const LogoPreloader = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const destroy = initFluidSimulation(canvas);
-    return () => destroy?.();
+    const sim = initFluidSimulation(canvas, BACK_COLOR_BY_THEME[initialThemeRef.current]);
+    return () => sim?.destroy();
   }, []);
 
   useEffect(() => {
@@ -40,8 +48,8 @@ const LogoPreloader = () => {
       <div className="logo-preloader-glow" />
       <div className="logo-preloader-stage">
         <div className="logo-preloader-shadow" />
-        <img src="/logo.png" alt="" className="logo-preloader-face logo-preloader-face-front" />
-        <img src="/logo.png" alt="" className="logo-preloader-face logo-preloader-face-back" />
+        <img src="/assets/fotos/logo.png" alt="" className="logo-preloader-face logo-preloader-face-front" />
+        <img src="/assets/fotos/logo.png" alt="" className="logo-preloader-face logo-preloader-face-back" />
       </div>
     </div>
   );

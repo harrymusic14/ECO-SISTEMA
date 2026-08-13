@@ -1,16 +1,64 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap');
+/* Fuentes alojadas localmente (descargadas de Google Fonts, public/fonts/),
+   precargadas desde index.html. Son fuentes variables: un solo archivo por
+   familia cubre todos los pesos que usa el sitio (500/600/700 en Oswald,
+   400/500/700 en Roboto), en vez de bajar un archivo distinto por peso. */
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url('/fonts/oswald-variable.woff2') format('woff2-variations');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/roboto-variable.woff2') format('woff2-variations');
+}
 
 :root {
+  /* Barra de ofertas fija arriba del navbar */
+  --offer-bar-height: 36px;
+
   /* Paleta de colores principal */
   --primary: #00d2ff;
   --primary-dark: #0099cc;
-  --bg-dark: #0f172a;
-  --bg-card: #1e293b;
-  --text-light: #f8fafc;
-  --text-muted: #94a3b8;
   
-  --border-color: rgba(255, 255, 255, 0.1);
-  --glass-bg: rgba(30, 41, 59, 0.7);
+  /* Nuevo Modo Oscuro Premium */
+  --bg-dark: #050b14;
+  --bg-dark-rgb: 5, 11, 20;
+  --bg-card: #0b1526;
+  --bg-elevated: #152642;
+  
+  --text-light: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #8498b3;
+
+  --border-color: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(11, 21, 38, 0.7);
+  --overlay-strong: rgba(5, 11, 20, 0.8);
+  --overlay-soft: rgba(5, 11, 20, 0.3);
+}/* Modo claro: cambia fondo, texto, bordes y superficies en todo el sitio. */
+[data-theme='light'] {
+  --bg-dark: #e2e8f0; /* Tono gris sólido para el fondo general, adiós al blanco */
+  --bg-dark-rgb: 226, 232, 240;
+  --bg-card: #f1f5f9; /* Gris más clarito para las tarjetas */
+  --bg-elevated: #cbd5e1;
+  
+  --text-light: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #475569;
+
+  --border-color: rgba(0, 210, 255, 0.15);
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --overlay-strong: rgba(232, 243, 251, 0.85);
+  --overlay-soft: rgba(232, 243, 251, 0.35);
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 * {
@@ -140,11 +188,60 @@ a {
   gap: 2rem;
 }
 
+/* Botones de tema (claro/oscuro) e idioma (ES/EN) */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navbar-actions-mobile {
+  display: none;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.icon-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-light);
+  padding: 0.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+  line-height: 0;
+  transition: border-color 0.25s ease, color 0.25s ease, background-color 0.25s ease;
+}
+
+.icon-toggle-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.icon-toggle-btn.lang-toggle-btn {
+  padding: 0.5rem 0.85rem;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
 @media (max-width: 768px) {
-  .mobile-menu-toggle { 
-    display: block; 
+  .mobile-menu-toggle {
+    display: block;
   }
-  
+
+  .navbar-actions-mobile {
+    display: flex;
+  }
+
+  .navbar-actions-desktop {
+    display: none;
+  }
+
   .nav-wrapper {
     position: absolute;
     top: 100%;
@@ -238,6 +335,15 @@ a {
   padding: 2.5rem 2rem;
   border-radius: 12px;
   text-align: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
 }
 
 .feature-icon-wrapper {
@@ -255,7 +361,7 @@ a {
 .feature-card h3 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: #fff;
+  color: var(--text-light);
 }
 
 .feature-card p {

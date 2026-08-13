@@ -1,8 +1,14 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
-import InteractiveBackground from '../components/InteractiveBackground';
+import { Menu, X, Languages, Sun, Moon } from 'lucide-react';
 import LogoPreloader from '../components/LogoPreloader';
+import BackgroundGlow from '../components/BackgroundGlow';
+import OfferBar from '../components/OfferBar';
+import WhatsAppButton from '../components/WhatsAppButton';
+import FloatingSocialButtons from '../components/FloatingSocialButtons';
+import SocialLinks from '../components/SocialLinks';
+import { useLanguage } from '../hooks/useLanguage';
+import { useTheme } from '../hooks/useTheme';
 
 // Coincide con el momento en que el splash del logo empieza a desvanecerse
 // (DISPLAY_MS en LogoPreloader.tsx), para que el navbar se revele justo ahí.
@@ -15,6 +21,8 @@ const Layout = () => {
   );
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { language, toggleLanguage, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     if (navbarReady) return;
@@ -48,75 +56,123 @@ const Layout = () => {
   return (
     <div className="app-container">
       <LogoPreloader />
-      <InteractiveBackground />
+      <BackgroundGlow />
+      <OfferBar />
       <nav
-        className={`navbar ${navbarReady ? 'navbar-in' : ''} ${navbarSolid ? 'glass' : ''}`}
+        className={`navbar ${navbarReady ? 'navbar-in' : ''} ${navbarSolid ? 'glass' : 'navbar-transparent'}`}
         style={{ backgroundColor: navbarSolid ? 'var(--glass-bg)' : 'transparent' }}
       >
         <div className="container">
           <Link to="/" className="logo">
-            <img src="/logo.png" alt="Eco Sistemas Logo" style={{ width: '40px', height: '40px', marginRight: '0.2rem' }} />
-            <span style={{ color: '#fff' }}>ECO</span>
+            <img src="/assets/fotos/logo.png" alt="Eco Sistemas Logo" style={{ width: '40px', height: '40px', marginRight: '0.2rem' }} />
+            <span style={{ color: navbarSolid ? 'var(--text-light)' : '#fff' }}>ECO</span>
             <span style={{ color: 'var(--primary)' }}>SISTEMAS</span>
           </Link>
           
-          <button 
-            className="mobile-menu-toggle" 
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle mobile menu"
-          >
-            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+          <div className="navbar-actions navbar-actions-mobile">
+            <button
+              className="icon-toggle-btn"
+              onClick={toggleTheme}
+              aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+              title={theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}
+            >
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+            <button
+              className="icon-toggle-btn lang-toggle-btn"
+              onClick={toggleLanguage}
+              aria-label="Cambiar idioma"
+              title={language === 'es' ? 'Switch to English' : 'Cambiar a Español'}
+            >
+              <Languages size={20} />
+              <span>{language.toUpperCase()}</span>
+            </button>
+            <button
+              className="mobile-menu-toggle"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle mobile menu"
+            >
+              {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
 
           <div className={`nav-wrapper ${mobileMenuOpen ? 'mobile-open' : ''}`}>
             <ul className="nav-links">
-              <li><Link to="/">Inicio</Link></li>
-              <li><Link to="/nosotros">Nosotros</Link></li>
-              <li><Link to="/servicios">Servicios</Link></li>
-              <li><Link to="/proyectos">Proyectos</Link></li>
-              <li><Link to="/productos">Productos</Link></li>
-              <li><Link to="/contacto">Contacto</Link></li>
+              <li><Link to="/">{t('navHome')}</Link></li>
+              <li><Link to="/nosotros">{t('navAbout')}</Link></li>
+              <li><Link to="/servicios">{t('navServices')}</Link></li>
+              <li><Link to="/proyectos">{t('navProjects')}</Link></li>
+              <li><Link to="/productos">{t('navProducts')}</Link></li>
+              <li><Link to="/contacto">{t('navContact')}</Link></li>
             </ul>
-            <Link to="/productos" className="btn btn-primary nav-catalog-btn">Catálogo</Link>
+            <div className="navbar-actions navbar-actions-desktop">
+              <button
+                className="icon-toggle-btn"
+                onClick={toggleTheme}
+                aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+                title={theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}
+              >
+                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+              <button
+                className="icon-toggle-btn lang-toggle-btn"
+                onClick={toggleLanguage}
+                aria-label="Cambiar idioma"
+                title={language === 'es' ? 'Switch to English' : 'Cambiar a Español'}
+              >
+                <Languages size={20} />
+                <span>{language.toUpperCase()}</span>
+              </button>
+            </div>
+            <Link to="/productos" className="btn btn-primary nav-catalog-btn">{t('navCatalog')}</Link>
           </div>
         </div>
       </nav>
 
-      <main style={{ paddingTop: location.pathname !== '/' ? '80px' : '0' }}>
-        <Outlet />
+      <main style={{ paddingTop: location.pathname !== '/' ? 'calc(80px + var(--offer-bar-height))' : '0' }}>
+        {/* El fallback casi nunca se ve: el LogoPreloader de arriba ya cubre
+            la pantalla durante la carga inicial de la página. */}
+        <Suspense fallback={<div style={{ minHeight: '60vh' }} />}>
+          <Outlet />
+        </Suspense>
       </main>
 
-      <footer style={{ backgroundColor: '#0f172a', borderTop: '2px solid #1e293b', padding: '4rem 0 2rem' }}>
+      <FloatingSocialButtons />
+      <WhatsAppButton />
+
+      <footer style={{ backgroundColor: 'var(--bg-dark)', borderTop: '2px solid var(--border-color)', padding: '4rem 0 2rem' }}>
         <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '3rem' }}>
           <div>
             <div className="logo" style={{ marginBottom: '1rem' }}>
-              <img src="/logo.png" alt="Eco Sistemas Logo" style={{ width: '40px', height: '40px', marginRight: '0.2rem' }} />
-              <span style={{ color: '#fff' }}>ECO</span>
+              <img src="/assets/fotos/logo.png" alt="Eco Sistemas Logo" style={{ width: '40px', height: '40px', marginRight: '0.2rem' }} />
+              <span style={{ color: 'var(--text-light)' }}>ECO</span>
               <span style={{ color: 'var(--primary)' }}>SISTEMAS</span>
             </div>
-            <p style={{ color: 'var(--text-muted)' }}>Soluciones industriales, agrícolas y domésticas. Equipando tu ecosistema con sistemas de riego y bombas de alta calidad.</p>
+            <p style={{ color: 'var(--text-muted)' }}>{t('footerTagline')}</p>
           </div>
           <div>
-            <h3 style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1.2rem' }}>Enlaces Rápidos</h3>
+            <h3 style={{ marginBottom: '1.5rem', color: 'var(--text-light)', fontSize: '1.2rem' }}>{t('footerQuickLinks')}</h3>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-              <li><Link to="/nosotros" style={{ color: 'var(--text-muted)' }}>¿Quiénes Somos?</Link></li>
-              <li><Link to="/servicios" style={{ color: 'var(--text-muted)' }}>Nuestros Servicios</Link></li>
-              <li><Link to="/proyectos" style={{ color: 'var(--text-muted)' }}>Proyectos Ejecutados</Link></li>
-              <li><Link to="/productos" style={{ color: 'var(--text-muted)' }}>Catálogo de Productos</Link></li>
+              <li><Link to="/nosotros" style={{ color: 'var(--text-muted)' }}>{t('footerAbout')}</Link></li>
+              <li><Link to="/servicios" style={{ color: 'var(--text-muted)' }}>{t('footerServices')}</Link></li>
+              <li><Link to="/proyectos" style={{ color: 'var(--text-muted)' }}>{t('footerProjects')}</Link></li>
+              <li><Link to="/productos" style={{ color: 'var(--text-muted)' }}>{t('footerProducts')}</Link></li>
             </ul>
           </div>
           <div>
-            <h3 style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1.2rem' }}>Contacto</h3>
+            <h3 style={{ marginBottom: '1.5rem', color: 'var(--text-light)', fontSize: '1.2rem' }}>{t('footerContactTitle')}</h3>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1rem', color: 'var(--text-muted)' }}>
               <li>📍 Mz A LT 9 A.V NUEVA GALES CIENEGUILLA</li>
               <li>📞 +51 998270102 / +51 985832096</li>
               <li>✉️ ecosistemas_urh_sac@hotmail.com</li>
               <li>🏢 RUC: 20502059751</li>
             </ul>
+            <h3 style={{ margin: '1.5rem 0 1rem', color: 'var(--text-light)', fontSize: '1.2rem' }}>{t('footerFollowUs')}</h3>
+            <SocialLinks />
           </div>
         </div>
-        <div style={{ textAlign: 'center', marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-          &copy; {new Date().getFullYear()} ECO SISTEMAS URH SAC. Todos los derechos reservados.
+        <div style={{ textAlign: 'center', marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid var(--border-color)', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+          &copy; {new Date().getFullYear()} ECO SISTEMAS URH SAC. {t('footerRights')}
         </div>
       </footer>
     </div>
