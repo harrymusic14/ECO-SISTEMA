@@ -126,18 +126,25 @@ const About = () => {
         background: 'var(--bg-dark)',
         overflow: 'hidden'
       }}>
-        {/* Background Image - EL USUARIO DEBE PONER SU IMAGEN AQUÍ */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          width: '100%',
-          height: '100%',
-          backgroundImage: 'url(/assets/fotos/nosotros/portada.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'right center',
-          zIndex: 1
-        }} />
+        {/* Background Image — <img> real (no CSS background-image) para que el
+            navegador la detecte de inmediato como candidata a LCP y la
+            priorice, en vez de descubrirla recién cuando React aplica el
+            estilo inline. */}
+        <img
+          src="/assets/fotos/nosotros/portada.jpg"
+          alt=""
+          fetchPriority="high"
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'right center',
+            zIndex: 1
+          }}
+        />
         
         {/* Dark Gradient Overlay para legibilidad del texto (igual a la referencia) */}
         <div className="hero-cover-overlay" style={{

@@ -21,7 +21,7 @@ const HERO_SLIDES: Record<Language, { image: string; title: React.ReactNode; des
       position: 'center',
     },
     {
-      image: '/assets/fotos/inicio/portada/parque_aspersores_hd.png',
+      image: '/assets/fotos/inicio/portada/parque_aspersores_hd.jpg',
       title: <>Riego para <span>Parques y Jardines</span></>,
       description: 'Cobertura uniforme para áreas verdes exuberantes, todo el año.',
       position: 'left',
@@ -41,7 +41,7 @@ const HERO_SLIDES: Record<Language, { image: string; title: React.ReactNode; des
       position: 'center',
     },
     {
-      image: '/assets/fotos/inicio/portada/parque_aspersores_hd.png',
+      image: '/assets/fotos/inicio/portada/parque_aspersores_hd.jpg',
       title: <>Irrigation for <span>Parks and Gardens</span></>,
       description: 'Uniform coverage for lush green areas, all year round.',
       position: 'left',

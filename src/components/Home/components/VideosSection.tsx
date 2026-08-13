@@ -81,6 +81,13 @@ const VideosSection = () => {
         <div className="carousel-track video-carousel-track" style={trackStyle}>
           {extended.map((video, i) => {
             const isActive = i === index;
+            // Con el buffer del loop infinito, cada video real aparece 2-3
+            // veces en este arreglo (una por cada copia "fantasma" a los
+            // costados). Ponerle `src` a las 19 copias hacía que el
+            // navegador descargara cada clip 2-3 veces de una. Solo la
+            // copia activa y sus vecinas inmediatas (para que la transición
+            // no se vea vacía) cargan el video real; el resto no pide nada.
+            const isNear = Math.abs(i - index) <= 1;
             return (
               <div
                 key={i}
@@ -97,11 +104,11 @@ const VideosSection = () => {
                       if (el) videoRefs.current.set(i, el);
                       else videoRefs.current.delete(i);
                     }}
-                    src={video.video_url}
+                    src={isNear ? video.video_url : undefined}
                     muted
                     loop
                     playsInline
-                    preload="metadata"
+                    preload={isNear ? 'metadata' : 'none'}
                     draggable={false}
                     className="video-card-media"
                   />

@@ -59,18 +59,25 @@ const Services = () => {
         background: 'var(--bg-dark)',
         overflow: 'hidden'
       }}>
-        {/* Background Image */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          width: '100%',
-          height: '100%',
-          backgroundImage: 'url(/assets/fotos/servicios/pexels-mehmet-demir-663414275-29067120.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          zIndex: 1
-        }} />
+        {/* Background Image — <img> real (no CSS background-image) para que el
+            navegador la detecte de inmediato como candidata a LCP y la
+            priorice, en vez de descubrirla recién cuando React aplica el
+            estilo inline. */}
+        <img
+          src="/assets/fotos/servicios/pexels-mehmet-demir-663414275-29067120.jpg"
+          alt=""
+          fetchPriority="high"
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            zIndex: 1
+          }}
+        />
         
         {/* Dark Gradient Overlay */}
         <div className="hero-cover-overlay" style={{
