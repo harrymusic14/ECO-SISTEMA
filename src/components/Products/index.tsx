@@ -52,11 +52,6 @@ const Products = () => {
           caudal a la derecha (oculto en móvil, igual que en el diseño original). */}
       <section className="products-hero">
         <div className="products-hero-grid container">
-          <div className="products-hero-text">
-            <h1>{t('productsHeaderTitle')}</h1>
-            <p>{t('productsHeaderSubtitle')}</p>
-          </div>
-
           <div className="products-hero-3d">
             <Suspense fallback={<div className="model3d-loader" style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><div className="model3d-spinner" /></div>}>
               <SprinklerScene3D />

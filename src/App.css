@@ -588,26 +588,25 @@ main {
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
+  justify-items: center;
   gap: 3rem;
   align-items: center;
-}
-
-.products-hero-text h1 {
-  font-size: 2.6rem;
-  color: var(--text-light);
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-}
-
-.products-hero-text p {
-  font-size: 1.1rem;
-  color: var(--primary);
 }
 
 .products-hero-3d {
   display: none;
   position: relative;
+  width: 100%;
+  max-width: 500px;
   height: 260px;
+}
+
+/* Sin título ni 3D, esta portada no tiene nada que mostrar en celular —
+   se oculta entera para no dejar una franja vacía arriba del catálogo. */
+@media (max-width: 991px) {
+  .products-hero {
+    display: none;
+  }
 }
 
 .products-hero-flow-card {
@@ -664,10 +663,6 @@ main {
 }
 
 @media (min-width: 992px) {
-  .products-hero-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
   .products-hero-3d {
     display: block;
   }
