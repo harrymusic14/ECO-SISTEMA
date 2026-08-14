@@ -129,7 +129,7 @@ const Layout = () => {
                 <span>{language.toUpperCase()}</span>
               </button>
             </div>
-            <Link to="/productos" className="btn btn-primary nav-catalog-btn">{t('navCatalog')}</Link>
+            <Link to="/catalogo" className="btn btn-primary nav-catalog-btn">{t('navCatalog')}</Link>
           </div>
         </div>
       </nav>

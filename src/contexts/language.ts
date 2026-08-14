@@ -99,6 +99,12 @@ export const translations = {
     cargandoProyectos: 'Cargando proyectos...',
     projectPhotoPlaceholder: '[Foto del Proyecto]',
 
+    // Catálogo (marcas)
+    catalogoHeaderTitle: 'Catálogo de Marcas',
+    catalogoHeaderSubtitle: 'Las marcas con las que trabajamos',
+    catalogoInstrucciones: 'Haz clic en el logo de una marca para descargar su catálogo en PDF.',
+    catalogoDescargarPdf: 'Descargar PDF',
+
     // Products
     productsHeaderTitle: 'Catálogo de Productos',
     productsHeaderSubtitle: 'Más de 1100 productos en nuestro inventario',
@@ -234,6 +240,12 @@ export const translations = {
     projectsIntro: 'Eco Sistemas has carried out different sprinkler and drip irrigation projects nationwide.',
     cargandoProyectos: 'Loading projects...',
     projectPhotoPlaceholder: '[Project Photo]',
+
+    // Catálogo (brands)
+    catalogoHeaderTitle: 'Brand Catalog',
+    catalogoHeaderSubtitle: 'The brands we work with',
+    catalogoInstrucciones: 'Click a brand logo to download its PDF catalog.',
+    catalogoDescargarPdf: 'Download PDF',
 
     // Products
     productsHeaderTitle: 'Product Catalog',
