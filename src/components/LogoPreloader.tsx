@@ -1,38 +1,41 @@
-import { useEffect, useRef, useState } from 'react';
-import { initFluidSimulation } from '../lib/webglFluid';
-import { useTheme } from '../hooks/useTheme';
+import { useEffect, useMemo, useState } from 'react';
 
 const DISPLAY_MS = 1900;
 const FADE_MS = 500;
 
-const BACK_COLOR_BY_THEME = {
-  dark: { r: 15, g: 23, b: 42 },
-  light: { r: 226, g: 232, b: 240 },
-};
+const GRID_COLS = 14;
+const GRID_ROWS = 8;
+
+// Cuadrícula de celdas que se iluminan en cian (color de marca) en forma de
+// onda expansiva desde el centro — reemplaza a la simulación de fluidos.
+const GRID_CELLS = (() => {
+  const centerX = (GRID_COLS - 1) / 2;
+  const centerY = (GRID_ROWS - 1) / 2;
+  const cells: { key: string; delay: number }[] = [];
+  for (let y = 0; y < GRID_ROWS; y++) {
+    for (let x = 0; x < GRID_COLS; x++) {
+      const dist = Math.hypot(x - centerX, y - centerY);
+      cells.push({ key: `${x}-${y}`, delay: dist * 190 });
+    }
+  }
+  return cells;
+})();
 
 /** Animación de bienvenida con el logo que aparece al recargar la página
  * (una sola vez, no en cada navegación interna del SPA ya que Layout no se
- * vuelve a montar entre rutas). Es su propia escena aparte: tiene su propia
- * simulación de fluidos (opaca, cubre toda la pantalla) en vez de mostrar la
- * página real detrás. Respeta prefers-reduced-motion. */
+ * vuelve a montar entre rutas). Es su propia escena aparte: una cuadrícula
+ * de celdas cian (color de marca) que se ilumina en onda desde el centro,
+ * opaca, cubre toda la pantalla) en vez de mostrar la página real detrás.
+ * Respeta prefers-reduced-motion. */
 const LogoPreloader = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { theme } = useTheme();
-  const initialThemeRef = useRef(theme);
   // Arranca siempre en 'in' (igual que el servidor) — comprobar
   // prefers-reduced-motion recién en el useEffect de abajo evita el
   // mismatch de hidratación (en el servidor no existe matchMedia).
   const [phase, setPhase] = useState<'in' | 'out' | 'done'>('in');
+  const gridCells = useMemo(() => GRID_CELLS, []);
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) setPhase('done');
-  }, []);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const sim = initFluidSimulation(canvas, BACK_COLOR_BY_THEME[initialThemeRef.current]);
-    return () => sim?.destroy();
   }, []);
 
   useEffect(() => {
@@ -49,7 +52,11 @@ const LogoPreloader = () => {
 
   return (
     <div className={`logo-preloader${phase === 'out' ? ' logo-preloader-out' : ''}`} aria-hidden="true">
-      <canvas ref={canvasRef} className="logo-preloader-canvas" />
+      <div className="logo-preloader-grid">
+        {gridCells.map((cell) => (
+          <div key={cell.key} className="logo-preloader-cell" style={{ animationDelay: `${cell.delay}ms` }} />
+        ))}
+      </div>
       <div className="logo-preloader-glow" />
       <div className="logo-preloader-stage">
         <div className="logo-preloader-shadow" />

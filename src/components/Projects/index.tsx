@@ -44,7 +44,11 @@ const Projects = () => {
 
   return (
     <>
-      <PageHeader title={t('projectsHeaderTitle')} subtitle={t('projectsHeaderSubtitle')} />
+      <PageHeader
+        title={t('projectsHeaderTitle')}
+        subtitle={t('projectsHeaderSubtitle')}
+        imageUrl="/assets/fotos/inicio/portada/tilak-teja-S-LAOuZV6vA-unsplash.webp"
+      />
       <div className="container" style={{ paddingBottom: '4rem' }}>
         <p style={{ fontSize: '1.2rem', textAlign: 'center', marginBottom: '4rem', color: 'var(--text-muted)' }}>
           {t('projectsIntro')}

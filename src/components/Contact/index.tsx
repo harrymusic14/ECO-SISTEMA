@@ -8,7 +8,11 @@ const Contact = () => {
 
   return (
     <>
-      <PageHeader title={t('contactHeaderTitle')} subtitle={t('contactHeaderSubtitle')} />
+      <PageHeader
+        title={t('contactHeaderTitle')}
+        subtitle={t('contactHeaderSubtitle')}
+        imageUrl="/assets/fotos/inicio/portada/parque_aspersores_hd.webp"
+      />
       <div className="container" style={{ paddingBottom: '4rem' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '4rem', alignItems: 'start' }}>
 
@@ -24,23 +28,23 @@ const Contact = () => {
             <form style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               <div>
                 <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)', fontSize: '0.95rem' }}>{t('contactFormNombre')}</label>
-                <input type="text" style={{ width: '100%', padding: '1rem', background: 'var(--bg-dark)', border: '1px solid var(--border-color)', color: 'var(--text-light)', outline: 'none' }} />
+                <input type="text" className="contact-input" />
               </div>
               <div>
                 <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)', fontSize: '0.95rem' }}>{t('contactFormEmpresa')}</label>
-                <input type="text" style={{ width: '100%', padding: '1rem', background: 'var(--bg-dark)', border: '1px solid var(--border-color)', color: 'var(--text-light)', outline: 'none' }} />
+                <input type="text" className="contact-input" />
               </div>
               <div>
                 <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)', fontSize: '0.95rem' }}>{t('contactFormEmail')}</label>
-                <input type="email" style={{ width: '100%', padding: '1rem', background: 'var(--bg-dark)', border: '1px solid var(--border-color)', color: 'var(--text-light)', outline: 'none' }} />
+                <input type="email" className="contact-input" />
               </div>
               <div>
                 <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)', fontSize: '0.95rem' }}>{t('contactFormCelular')}</label>
-                <input type="tel" style={{ width: '100%', padding: '1rem', background: 'var(--bg-dark)', border: '1px solid var(--border-color)', color: 'var(--text-light)', outline: 'none' }} />
+                <input type="tel" className="contact-input" />
               </div>
               <div>
                 <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)', fontSize: '0.95rem' }}>{t('contactFormMensaje')}</label>
-                <textarea rows={6} style={{ width: '100%', padding: '1rem', background: 'var(--bg-dark)', border: '1px solid var(--border-color)', color: 'var(--text-light)', outline: 'none', resize: 'vertical' }}></textarea>
+                <textarea rows={6} className="contact-input" style={{ resize: 'vertical' }}></textarea>
               </div>
               <button type="button" style={{ 
                 marginTop: '1rem', 

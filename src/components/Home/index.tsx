@@ -95,7 +95,7 @@ const Home = () => {
             <h1>{slide.title}</h1>
             <p>{slide.description}</p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: HERO_JUSTIFY[slide.position] }}>
-              <Link to="/productos" className="btn btn-primary">{t('heroBtnCatalog')}</Link>
+              <Link to="/catalogo" className="btn btn-primary">{t('heroBtnCatalog')}</Link>
               <Link to="/contacto" className="btn btn-outline">{t('heroBtnContact')}</Link>
             </div>
           </div>

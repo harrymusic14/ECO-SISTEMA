@@ -82,7 +82,13 @@ body {
   overflow-x: hidden;
 }
 
-/* Scrollbar general de la página, a juego con la paleta del sitio */
+/* Scrollbar general de la página, a juego con la paleta del sitio.
+   Nota: en Chrome para Windows 11, el scrollbar de la página completa usa
+   el renderizador nativo "Fluent" del sistema operativo, que respeta el
+   COLOR de scrollbar-color pero siempre dibuja las puntas ligeramente
+   redondeadas — border-radius:0 en ::-webkit-scrollbar-thumb no tiene
+   efecto ahí (limitación del navegador, no del CSS). Esas reglas webkit sí
+   se respetan en Safari y en cualquier <div> con scroll propio. */
 html {
   scrollbar-width: thin;
   scrollbar-color: var(--primary-dark) var(--bg-dark);
@@ -99,8 +105,8 @@ html {
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--primary-dark);
-  border-radius: 6px;
-  border: 2px solid var(--bg-dark);
+  border-radius: 0;
+  border: none;
 }
 
 ::-webkit-scrollbar-thumb:hover {

@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useState } from 'react';
-import { Outlet, Link, NavLink, useLocation, ScrollRestoration } from 'react-router';
+import { Outlet, Link, NavLink, useLocation, useNavigation, ScrollRestoration } from 'react-router';
 import { Menu, X, Languages, Sun, Moon } from 'lucide-react';
 import LogoPreloader from '../components/LogoPreloader';
 import BackgroundGlow from '../components/BackgroundGlow';
@@ -22,6 +22,8 @@ const Layout = () => {
   const [navbarReady, setNavbarReady] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigation = useNavigation();
+  const isNavigating = navigation.state !== 'idle';
   const { language, toggleLanguage, t } = useLanguage();
   const { theme, toggleTheme } = useTheme();
 
@@ -60,6 +62,7 @@ const Layout = () => {
 
   return (
     <div className="app-container">
+      <div className={`route-progress ${isNavigating ? 'route-progress-active' : ''}`} />
       <LogoPreloader />
       <BackgroundGlow />
       <OfferBar />
