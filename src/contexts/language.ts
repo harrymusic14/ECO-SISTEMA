@@ -79,18 +79,18 @@ export const translations = {
     servicesSolutionsTitle2: 'Ofrecemos',
     serviceAsesoriaTitle: 'Asesoría',
     serviceAsesoriaDesc:
-      'Brindamos asesoría para el diseño e implementación de sistemas de riego, para todo tipo de proyectos. Así mismo brindamos el soporte y asesoría técnica para la elección de sistemas de presión constante e hidroneumática para residencias, edificios, casas de campo, etc.',
+      'Te asesoramos en el diseño e implementación de sistemas de riego para todo tipo de proyectos, incluyendo la elección de sistemas de presión constante e hidroneumáticos.',
     serviceInstalacionTitle: 'Instalación',
     serviceInstalacionDescServices:
-      'Realizamos instalaciones de sistemas de riego en proyectos residenciales, edificios multifamiliares, campos deportivos, parques, casas de playa, condominios, campos agrícolas.',
-    serviceInstalacionDescServices2: 'Instalación de sistemas para agua: Sistema de Presión Constante, Sistema Hidroneumático.',
-    serviceInstalacionDescServices3: 'Instalación de bombas para riego, tanque elevado, piscinas, pozos, pozos tubulares.',
+      'Instalamos sistemas de riego en proyectos residenciales, edificios, campos deportivos, parques, condominios y campos agrícolas.',
+    serviceInstalacionDescServices2: 'Sistemas de presión constante e hidroneumáticos.',
+    serviceInstalacionDescServices3: 'Bombas para riego, tanques elevados, piscinas y pozos.',
     serviceDisenoTitle: 'Diseño',
     serviceDisenoDescServices:
-      'Diseñamos sistemas de riego a la medida de cada espacio y plano paisajístico, calculando caudal, presión y sectores de riego para lograr una cobertura uniforme. Seleccionamos aspersores, goteros y tuberías según el tipo de terreno y cultivo, priorizando siempre el ahorro de agua y energía.',
+      'Diseñamos sistemas de riego a la medida de cada espacio, calculando caudal, presión y sectores para una cobertura uniforme y un uso eficiente del agua.',
     serviceMantenimientoTitle: 'Mantenimiento',
     serviceMantenimientoDescServices:
-      'Reparación y mantenimiento preventivo y correctivo de electrobombas, sistemas de presión constante e hidroneumáticos. Revisamos válvulas, aspersores y tuberías para detectar fugas o desgaste a tiempo, asegurando que tu sistema de riego funcione de forma eficiente durante todo el año.',
+      'Mantenimiento preventivo y correctivo de electrobombas, sistemas de presión constante e hidroneumáticos, válvulas, aspersores y tuberías.',
 
     // Projects
     projectsHeaderTitle: 'Nuestros Proyectos',
@@ -221,18 +221,18 @@ export const translations = {
     servicesSolutionsTitle2: 'Offer',
     serviceAsesoriaTitle: 'Advisory',
     serviceAsesoriaDesc:
-      'We provide advisory services for the design and implementation of irrigation systems, for all types of projects. We also provide technical support and advice for choosing constant pressure and hydropneumatic systems for residences, buildings, country houses, etc.',
+      'We advise you on the design and implementation of irrigation systems for all types of projects, including choosing constant pressure and hydropneumatic systems.',
     serviceInstalacionTitle: 'Installation',
     serviceInstalacionDescServices:
-      'We install irrigation systems in residential projects, multi-family buildings, sports fields, parks, beach houses, condominiums, and agricultural fields.',
-    serviceInstalacionDescServices2: 'Installation of water systems: Constant Pressure System, Hydropneumatic System.',
-    serviceInstalacionDescServices3: 'Installation of pumps for irrigation, elevated tanks, pools, wells, and tube wells.',
+      'We install irrigation systems in residential projects, buildings, sports fields, parks, condominiums, and agricultural fields.',
+    serviceInstalacionDescServices2: 'Constant pressure and hydropneumatic systems.',
+    serviceInstalacionDescServices3: 'Pumps for irrigation, elevated tanks, pools, and wells.',
     serviceDisenoTitle: 'Design',
     serviceDisenoDescServices:
-      'We design irrigation systems tailored to each space and landscape plan, calculating flow rate, pressure, and irrigation zones to achieve uniform coverage. We select sprinklers, drippers, and piping based on terrain and crop type, always prioritizing water and energy savings.',
+      'We design irrigation systems tailored to each space, calculating flow rate, pressure, and zones for uniform coverage and efficient water use.',
     serviceMantenimientoTitle: 'Maintenance',
     serviceMantenimientoDescServices:
-      'Preventive and corrective repair and maintenance of electric pumps, constant pressure systems, and hydropneumatic systems. We inspect valves, sprinklers, and piping to catch leaks or wear early, keeping your irrigation system running efficiently all year round.',
+      'Preventive and corrective maintenance of electric pumps, constant pressure and hydropneumatic systems, valves, sprinklers, and piping.',
 
     // Projects
     projectsHeaderTitle: 'Our Projects',

@@ -51,11 +51,11 @@ const Services = () => {
   return (
     <>
       {/* Custom Hero Cover (Portada) para Servicios */}
-      <section style={{ 
-        position: 'relative', 
+      <section style={{
+        position: 'relative',
         minHeight: '80vh',
         display: 'flex',
-        alignItems: 'center',
+        flexDirection: 'column',
         background: 'var(--bg-dark)',
         overflow: 'hidden'
       }}>
@@ -89,33 +89,33 @@ const Services = () => {
           zIndex: 2
         }} />
 
-        <div className="container" style={{ position: 'relative', zIndex: 3, padding: '4rem 1rem' }}>
+        <div className="container" style={{ position: 'relative', zIndex: 3, padding: '4rem 1rem', flex: '1', display: 'flex', alignItems: 'center' }}>
           <div style={{ maxWidth: '750px' }}>
             <div style={{ marginBottom: '1.5rem', fontSize: '1rem', fontWeight: '700', color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '2px' }}>
-              SOLUCIONES INDUSTRIALES
+              SOLUCIONES EN RIEGO
             </div>
-            
-            <h1 style={{ 
-              fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', 
-              fontWeight: '900', 
-              lineHeight: '1.1', 
+
+            <h1 style={{
+              fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+              fontWeight: '900',
+              lineHeight: '1.1',
               marginBottom: '1.5rem',
               color: 'var(--text-light)',
               fontFamily: 'Oswald, sans-serif',
               textTransform: 'uppercase'
             }}>
-              Acero Inoxidable<br/>A Medida
+              Riego Técnico y<br/>Mantenimiento Hidráulico
             </h1>
-            
-            <p style={{ 
-              fontSize: '1.1rem', 
-              lineHeight: '1.7', 
+
+            <p style={{
+              fontSize: '1.1rem',
+              lineHeight: '1.7',
               color: 'var(--text-light)',
               opacity: '0.9',
               marginBottom: '2.5rem',
               maxWidth: '650px'
             }}>
-              Fabricamos componentes industriales, conexiones especiales y sistemas hidráulicos para minería, industria, construcción y proyectos de alta exigencia.
+              Diseñamos, instalamos y damos mantenimiento a sistemas de riego y equipos hidráulicos para proyectos residenciales, agrícolas, comerciales e industriales en todo el Perú.
             </p>
             
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -177,9 +177,7 @@ const Services = () => {
 
         {/* Feature Bar (Transparent/Glassmorphism) at bottom */}
         <div style={{
-          position: 'absolute',
-          bottom: '0',
-          left: '0',
+          position: 'relative',
           width: '100%',
           padding: '0 1rem',
           zIndex: 4
@@ -200,11 +198,11 @@ const Services = () => {
             }}>
               {[
                 { icon: <Truck size={30} />, text: 'ENVÍOS A\nTODO EL PERÚ' },
-                { icon: <Factory size={30} />, text: 'ATENCIÓN A\nINDUSTRIA Y MINERÍA' },
+                { icon: <Factory size={30} />, text: 'ATENCIÓN A\nAGRO E INDUSTRIA' },
                 { icon: <Headset size={30} />, text: 'ASESORÍA TÉCNICA\nESPECIALIZADA' },
                 { icon: <ShieldCheck size={30} />, text: 'CALIDAD Y\nGARANTÍA' },
                 { icon: <Package size={30} />, text: 'STOCK\nPERMANENTE' },
-                { icon: <Cog size={30} />, text: 'FABRICACIÓN A\nMEDIDA' },
+                { icon: <Cog size={30} />, text: 'MANTENIMIENTO\nHIDRÁULICO' },
               ].map((item, index) => (
                 <div key={index} style={{
                   display: 'flex',
@@ -382,7 +380,7 @@ const Services = () => {
                   <FileSearch size={30} color="var(--primary)" />
                 </div>
                 <div style={{ fontSize: '0.9rem', color: 'var(--primary)', fontWeight: 'bold', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Paso 02</div>
-                <h3 style={{ fontWeight: '700', color: 'var(--text-light)', fontSize: '1.3rem', lineHeight: '1.3' }}>Evaluamos planos o muestra</h3>
+                <h3 style={{ fontWeight: '700', color: 'var(--text-light)', fontSize: '1.3rem', lineHeight: '1.3' }}>Evaluamos el terreno o proyecto</h3>
               </div>
             </div>
 
@@ -404,7 +402,7 @@ const Services = () => {
                   <Cog size={30} color="var(--primary)" />
                 </div>
                 <div style={{ fontSize: '0.9rem', color: 'var(--primary)', fontWeight: 'bold', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Paso 03</div>
-                <h3 style={{ fontWeight: '700', color: 'var(--text-light)', fontSize: '1.3rem', lineHeight: '1.3' }}>Fabricamos a medida</h3>
+                <h3 style={{ fontWeight: '700', color: 'var(--text-light)', fontSize: '1.3rem', lineHeight: '1.3' }}>Instalamos tu sistema de riego</h3>
               </div>
             </div>
 
@@ -448,7 +446,7 @@ const Services = () => {
                   <Truck size={30} color="var(--primary)" />
                 </div>
                 <div style={{ fontSize: '0.9rem', color: 'var(--primary)', fontWeight: 'bold', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Paso 05</div>
-                <h3 style={{ fontWeight: '700', color: 'var(--text-light)', fontSize: '1.3rem', lineHeight: '1.3' }}>Entrega a nivel nacional</h3>
+                <h3 style={{ fontWeight: '700', color: 'var(--text-light)', fontSize: '1.3rem', lineHeight: '1.3' }}>Entrega e instalación a nivel nacional</h3>
               </div>
             </div>
           </div>

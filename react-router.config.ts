@@ -7,4 +7,13 @@ export default {
   appDirectory: 'src',
   ssr: true,
   presets: [vercelPreset()],
+  // Fijados en false (el comportamiento actual) solo para silenciar los
+  // avisos de "Future Flag" en consola — no cambia nada del funcionamiento.
+  future: {
+    v8_middleware: false,
+    v8_splitRouteModules: false,
+    v8_viteEnvironmentApi: false,
+    v8_passThroughRequests: false,
+    v8_trailingSlashAwareDataRequests: false,
+  },
 } satisfies Config;
