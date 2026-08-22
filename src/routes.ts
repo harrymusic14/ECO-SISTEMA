@@ -7,7 +7,6 @@ export default [
     route('servicios', './components/Services/index.tsx'),
     route('proyectos', './components/Projects/index.tsx'),
     route('productos', './components/Products/index.tsx'),
-    route('catalogo', './components/Catalogo/index.tsx'),
     route('contacto', './components/Contact/index.tsx'),
     route('login', './pages/Login.tsx'),
     route('admin', './routes/admin.tsx'),

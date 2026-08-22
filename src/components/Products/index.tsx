@@ -76,59 +76,62 @@ const Products = () => {
       </section>
 
       <div className="container" style={{ paddingBottom: '4rem' }}>
-
-        {/* Filtros */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', marginBottom: '3rem', background: 'var(--bg-card)', padding: '2rem', border: '4px solid var(--bg-elevated)' }}>
-          <div style={{ flex: '1 1 300px' }}>
-            <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--primary)', fontFamily: 'Oswald', textTransform: 'uppercase' }}>{t('buscarProducto')}</label>
-            <input
-              type="text"
-              placeholder={t('buscarProductoPlaceholder')}
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              style={{ width: '100%', padding: '1rem', background: 'var(--bg-dark)', border: '2px solid var(--bg-elevated)', color: 'var(--text-light)', outline: 'none' }}
-            />
-          </div>
-          <div style={{ flex: '1 1 300px' }}>
-            <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--primary)', fontFamily: 'Oswald', textTransform: 'uppercase' }}>{t('filtrarCategoria')}</label>
-            <select
-              value={categoryFilter}
-              onChange={(e) => setCategoryFilter(e.target.value)}
-              style={{ width: '100%', padding: '1rem', background: 'var(--bg-dark)', border: '2px solid var(--bg-elevated)', color: 'var(--text-light)', outline: 'none' }}
-            >
-              {CATEGORIES.map(c => (
-                <option key={c.value} value={c.value}>{t(c.labelKey)}</option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        <p style={{ marginBottom: '2rem', color: 'var(--text-muted)' }}>{t('mostrandoProductos', { count: filteredProducts.length })}</p>
-        <div className="products-grid">
-          {filteredProducts.map((product: any) => (
-            <div key={product.id} className="product-card glass">
-              <div className="product-img">
-                <img
-                  src={product.imagen_url || 'https://via.placeholder.com/300x200.png?text=Producto'}
-                  alt={product.nombre}
-                  loading="lazy"
-                  style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'cover' }}
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=400';
-                  }}
-                />
-              </div>
-              <div className="product-info">
-                <span className="product-category">{product.categoria}</span>
-                <h3 className="product-name">{product.nombre}</h3>
-                <button className="btn btn-outline" style={{ width: '100%', marginTop: '1rem', padding: '0.5rem', fontSize: '1rem' }}>{t('solicitarCotizacion')}</button>
-              </div>
+        <div className="products-layout">
+          {/* Buscador (arriba) y filtro por categoría (abajo), en la barra lateral izquierda */}
+          <aside className="products-sidebar">
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--primary)', fontFamily: 'Oswald', textTransform: 'uppercase' }}>{t('buscarProducto')}</label>
+              <input
+                type="text"
+                placeholder={t('buscarProductoPlaceholder')}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{ width: '100%', padding: '1rem', background: 'var(--bg-dark)', border: '2px solid var(--bg-elevated)', color: 'var(--text-light)', outline: 'none' }}
+              />
             </div>
-          ))}
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--primary)', fontFamily: 'Oswald', textTransform: 'uppercase' }}>{t('filtrarCategoria')}</label>
+              <select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+                style={{ width: '100%', padding: '1rem', background: 'var(--bg-dark)', border: '2px solid var(--bg-elevated)', color: 'var(--text-light)', outline: 'none' }}
+              >
+                {CATEGORIES.map(c => (
+                  <option key={c.value} value={c.value}>{t(c.labelKey)}</option>
+                ))}
+              </select>
+            </div>
+          </aside>
+
+          <div className="products-main">
+            <p style={{ marginBottom: '2rem', color: 'var(--text-muted)' }}>{t('mostrandoProductos', { count: filteredProducts.length })}</p>
+            <div className="products-grid">
+              {filteredProducts.map((product: any) => (
+                <div key={product.id} className="product-card glass">
+                  <div className="product-img">
+                    <img
+                      src={product.imagen_url || 'https://via.placeholder.com/300x200.png?text=Producto'}
+                      alt={product.nombre}
+                      loading="lazy"
+                      style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'cover' }}
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=400';
+                      }}
+                    />
+                  </div>
+                  <div className="product-info">
+                    <span className="product-category">{product.categoria}</span>
+                    <h3 className="product-name">{product.nombre}</h3>
+                    <button className="btn btn-outline" style={{ width: '100%', marginTop: '1rem', padding: '0.5rem', fontSize: '1rem' }}>{t('solicitarCotizacion')}</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {filteredProducts.length === 0 && (
+              <p style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '3rem 0' }}>{t('sinResultados')}</p>
+            )}
+          </div>
         </div>
-        {filteredProducts.length === 0 && (
-          <p style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '3rem 0' }}>{t('sinResultados')}</p>
-        )}
       </div>
     </>
   );

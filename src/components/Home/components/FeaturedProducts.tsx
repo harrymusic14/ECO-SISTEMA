@@ -29,7 +29,7 @@ const FEATURED_PRODUCTS: Record<Language, FeaturedProduct[]> = {
       variant: 'rotor',
     },
     {
-      badge: 'Hunter',
+      badge: 'Hunter - Rain Bird',
       title: 'Difusor de Riego',
       features: [
         'Cobertura precisa para áreas pequeñas y medianas',
@@ -51,7 +51,7 @@ const FEATURED_PRODUCTS: Record<Language, FeaturedProduct[]> = {
       variant: 'rotor',
     },
     {
-      badge: 'Hunter',
+      badge: 'Hunter - Rain Bird',
       title: 'Irrigation Spray Head',
       features: [
         'Precise coverage for small and medium areas',

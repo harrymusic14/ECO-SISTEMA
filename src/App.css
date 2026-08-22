@@ -740,6 +740,34 @@ main {
   color: var(--text-muted);
 }
 
+.products-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  align-items: start;
+  gap: 2rem;
+}
+
+.products-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background: var(--bg-card);
+  padding: 2rem;
+  border: 4px solid var(--bg-elevated);
+  position: sticky;
+  top: calc(80px + var(--offer-bar-height) + 2rem);
+}
+
+@media (max-width: 768px) {
+  .products-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .products-sidebar {
+    position: static;
+  }
+}
+
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -1578,31 +1606,3 @@ main {
   }
 }
 
-/* Catálogo de marcas: tarjetas clickeables que descargan el PDF de cada marca */
-.marca-catalogo-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 2rem 2.5rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  min-width: 220px;
-}
-
-.marca-catalogo-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-}
-
-.marca-catalogo-download {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.85rem;
-  font-family: 'Oswald', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  opacity: 0.85;
-}

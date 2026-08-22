@@ -132,7 +132,7 @@ const Layout = () => {
                 <span>{language.toUpperCase()}</span>
               </button>
             </div>
-            <Link to="/catalogo" className="btn btn-primary nav-catalog-btn">{t('navCatalog')}</Link>
+            <a href="/assets/catalogos/ecosistema.pdf" download className="btn btn-primary nav-catalog-btn">{t('navCatalog')}</a>
           </div>
         </div>
       </nav>

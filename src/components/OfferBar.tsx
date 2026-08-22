@@ -7,13 +7,13 @@ const OFFERS: Record<Language, string[]> = {
     '🌱 Cotiza tu sistema de riego sin costo',
     '🚚 Envíos a todo el Perú',
     '🔧 Instalación y mantenimiento especializado',
-    '⚡ Más de 20 años de experiencia',
+    '⚡ Más de 25 años de experiencia',
   ],
   en: [
     '🌱 Get a free irrigation system quote',
     '🚚 Shipping all over Peru',
     '🔧 Specialized installation and maintenance',
-    '⚡ Over 20 years of experience',
+    '⚡ Over 25 years of experience',
   ],
 };
 

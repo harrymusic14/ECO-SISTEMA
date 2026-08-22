@@ -30,7 +30,7 @@ export const translations = {
     homeMarcasTitle3: 'con las que Trabajamos',
     homeCtaTitle: '¿Buscas soluciones en sistemas de riego?',
     homeCtaText:
-      'Somos una empresa peruana con más de 20 años de experiencia ofreciendo productos de alta calidad y servicios de asesoría, instalación y diseño para todo tipo de proyectos.',
+      'Somos una empresa peruana con más de 25 años de experiencia ofreciendo productos de alta calidad y servicios de asesoría, instalación y diseño para todo tipo de proyectos.',
     homeCtaBtn: 'Conócenos más',
     featuredProductsTitle1: 'Productos',
     featuredProductsTitle2: 'Destacados',
@@ -52,7 +52,7 @@ export const translations = {
     aboutIntroTitle1: 'Especialistas en Sistemas de',
     aboutIntroTitle2: 'Riego Tecnificado',
     aboutIntroP1:
-      'Somos una empresa Peruana con más de 20 años de experiencia, dedicada a la instalación de sistemas de riego tecnificado a nivel residencial, multifamiliar, parques, campos deportivos, centros comerciales y agrícolas.',
+      'Somos una empresa Peruana con más de 25 años de experiencia, dedicada a la instalación de sistemas de riego tecnificado a nivel residencial, multifamiliar, parques, campos deportivos, centros comerciales y agrícolas.',
     aboutIntroP2:
       'Ofrecemos sistemas de riego por Aspersión, Microaspersión, Goteo y Nebulización, utilizando productos de alta calidad para superar las expectativas de nuestros clientes.',
     aboutImageAlt: 'Jardines con riego',
@@ -98,12 +98,6 @@ export const translations = {
     projectsIntro: 'Eco Sistemas ha ejecutado diferentes proyectos en riego por aspersión y goteo a nivel nacional.',
     cargandoProyectos: 'Cargando proyectos...',
     projectPhotoPlaceholder: '[Foto del Proyecto]',
-
-    // Catálogo (marcas)
-    catalogoHeaderTitle: 'Catálogo de Marcas',
-    catalogoHeaderSubtitle: 'Las marcas con las que trabajamos',
-    catalogoInstrucciones: 'Haz clic en el logo de una marca para descargar su catálogo en PDF.',
-    catalogoDescargarPdf: 'Descargar PDF',
 
     // Products
     productsHeaderTitle: 'Catálogo de Productos',
@@ -172,7 +166,7 @@ export const translations = {
     homeMarcasTitle3: 'We Work With',
     homeCtaTitle: 'Looking for irrigation system solutions?',
     homeCtaText:
-      'We are a Peruvian company with over 20 years of experience offering high-quality products and advisory, installation, and design services for all types of projects.',
+      'We are a Peruvian company with over 25 years of experience offering high-quality products and advisory, installation, and design services for all types of projects.',
     homeCtaBtn: 'Learn More About Us',
     featuredProductsTitle1: 'Featured',
     featuredProductsTitle2: 'Products',
@@ -194,7 +188,7 @@ export const translations = {
     aboutIntroTitle1: 'Specialists in',
     aboutIntroTitle2: 'Advanced Irrigation Systems',
     aboutIntroP1:
-      'We are a Peruvian company with over 20 years of experience, dedicated to installing advanced irrigation systems for residential, multi-family, parks, sports fields, shopping centers, and agricultural properties.',
+      'We are a Peruvian company with over 25 years of experience, dedicated to installing advanced irrigation systems for residential, multi-family, parks, sports fields, shopping centers, and agricultural properties.',
     aboutIntroP2:
       'We offer irrigation systems by Sprinkler, Micro-sprinkler, Drip, and Fogging, using high-quality products to exceed our clients’ expectations.',
     aboutImageAlt: 'Gardens with irrigation',
@@ -240,12 +234,6 @@ export const translations = {
     projectsIntro: 'Eco Sistemas has carried out different sprinkler and drip irrigation projects nationwide.',
     cargandoProyectos: 'Loading projects...',
     projectPhotoPlaceholder: '[Project Photo]',
-
-    // Catálogo (brands)
-    catalogoHeaderTitle: 'Brand Catalog',
-    catalogoHeaderSubtitle: 'The brands we work with',
-    catalogoInstrucciones: 'Click a brand logo to download its PDF catalog.',
-    catalogoDescargarPdf: 'Download PDF',
 
     // Products
     productsHeaderTitle: 'Product Catalog',

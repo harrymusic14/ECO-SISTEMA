@@ -95,7 +95,7 @@ const Home = () => {
             <h1>{slide.title}</h1>
             <p>{slide.description}</p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: HERO_JUSTIFY[slide.position] }}>
-              <Link to="/catalogo" className="btn btn-primary">{t('heroBtnCatalog')}</Link>
+              <a href="/assets/catalogos/ecosistema.pdf" download className="btn btn-primary">{t('heroBtnCatalog')}</a>
               <Link to="/contacto" className="btn btn-outline">{t('heroBtnContact')}</Link>
             </div>
           </div>
@@ -115,14 +115,21 @@ const Home = () => {
         <h2 className="section-title" style={{ marginTop: '0' }}>{t('homeMarcasTitle1')} <span>{t('homeMarcasTitle2')}</span> {t('homeMarcasTitle3')}</h2>
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '3rem', alignItems: 'center', marginTop: '2rem' }}>
           <div style={{ padding: '1.5rem', background: 'var(--bg-card)', borderRadius: '8px' }}>
-            <h3 style={{ color: 'var(--text-light)', fontFamily: 'Oswald', fontSize: '2rem' }}>DIG</h3>
+            <h3 style={{ color: '#0194d3', fontFamily: 'Oswald', fontSize: '2rem' }}>DIG</h3>
             <span style={{ color: 'var(--text-muted)' }}>water matters</span>
           </div>
           <div style={{ padding: '1.5rem', background: '#005a8b', borderRadius: '8px' }}>
             <h3 style={{ color: '#fff', fontFamily: 'Oswald', fontSize: '2rem' }}>Hunter</h3>
           </div>
           <div style={{ padding: '1.5rem', background: 'var(--bg-card)', borderRadius: '8px' }}>
-            <h3 style={{ color: 'var(--text-light)', fontFamily: 'Oswald', fontSize: '2rem' }}>RAIN<span style={{ color: 'var(--primary-dark)' }}>PRO</span></h3>
+            <h3 style={{ fontFamily: 'Oswald', fontSize: '2rem', fontStyle: 'italic', fontWeight: 700 }}>
+              <span style={{ color: '#1b2f5e' }}>RAIN</span>
+              <span style={{ color: '#8b9bd1' }}>PRO</span>
+              <span style={{ color: '#1b2f5e' }}>-HIT</span>
+            </h3>
+          </div>
+          <div style={{ padding: '1.5rem', background: 'var(--bg-card)', borderRadius: '8px' }}>
+            <h3 style={{ color: '#00843d', fontFamily: 'Oswald', fontSize: '2rem', fontStyle: 'italic' }}>Rain Bird</h3>
           </div>
           <div style={{ padding: '1.5rem', background: 'var(--bg-card)', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
             <h3 style={{ color: 'var(--text-light)', fontFamily: 'Oswald', fontSize: '2rem' }}>WASSERMANN</h3>
